@@ -1,0 +1,31 @@
+<!-- ================= CURADORIA AVELINE (CATÁLOGO) ================= -->
+<section id="catalogo" class="max-w-[1380px] mx-auto px-4 sm:px-8 py-20">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+    <div>
+      <span class="text-xs font-semibold tracking-[0.25em] text-brand-gold uppercase">Frascos de Coleção</span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-brand-wine mt-1 font-normal">Curadoria AVELINE</h2>
+    </div>
+
+    <!-- Filtros -->
+    <div class="flex flex-wrap items-center gap-2" id="catalog-filters">
+      <button onclick="filterCatalog('todos')" data-filter="todos" class="cat-pill is-active">Todos</button>
+      <button onclick="filterCatalog('feminino')" data-filter="feminino" class="cat-pill">Femininos</button>
+      <button onclick="filterCatalog('masculino')" data-filter="masculino" class="cat-pill">Masculinos</button>
+      <button onclick="filterCatalog('unissex')" data-filter="unissex" class="cat-pill">Unissex</button>
+      <button onclick="filterCatalog('nicho')" data-filter="nicho" class="cat-pill">Nicho</button>
+      <button onclick="filterCatalog('lancamentos')" data-filter="lancamentos" class="cat-pill">Lançamentos</button>
+      <button onclick="filterCatalog('decantes')" data-filter="decantes" class="cat-pill">Decantes</button>
+    </div>
+  </div>
+
+  <!-- Grade de produtos (preenchida por products.js) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid-container">
+    <div class="skeleton aspect-[4/5]"></div>
+    <div class="skeleton aspect-[4/5] hidden sm:block"></div>
+    <div class="skeleton aspect-[4/5] hidden lg:block"></div>
+  </div>
+
+  <p id="catalog-empty" class="hidden text-center text-sm text-brand-dark/60 py-16">
+    Nenhuma fragrância nesta seleção por enquanto. Fale com nosso concierge no WhatsApp para encomendas.
+  </p>
+</section>

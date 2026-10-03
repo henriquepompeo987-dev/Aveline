@@ -1,0 +1,84 @@
+<!-- ================= CATEGORIAS EM DESTAQUE ================= -->
+<section class="max-w-[1380px] mx-auto px-4 sm:px-8 py-16">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+    <div>
+      <span class="text-xs font-semibold tracking-[0.25em] text-brand-gold uppercase">Universo Sensorial</span>
+      <h2 class="font-serif text-3xl sm:text-4xl text-brand-wine mt-1 font-normal">Categorias de Prestígio</h2>
+    </div>
+    <p class="text-sm text-brand-dark/70 max-w-md">Jornadas olfativas organizadas pela nobreza dos acordes e temperamento das notas.</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+
+    <button type="button" onclick="filterCatalog('feminino', true)" class="text-left group relative bg-brand-surface border border-brand-border p-6 flex flex-col justify-between h-80 hover:shadow-xl hover:border-brand-gold transition-all duration-300">
+      <div>
+        <div class="w-12 h-12 rounded-full bg-brand-cream/60 flex items-center justify-center text-brand-wine mb-4 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[24px]">local_florist</span>
+        </div>
+        <span class="text-[10px] tracking-widest uppercase text-brand-gold font-bold">Floral & Âmbar</span>
+        <h3 class="font-serif text-2xl text-brand-wine mt-1">Femininos</h3>
+        <p class="text-xs text-brand-dark/70 mt-2 leading-relaxed">Aura floral e sofisticação envolvente para marcar presença com delicadeza.</p>
+      </div>
+      <div class="flex items-center gap-1 text-[11px] font-bold tracking-widest text-brand-wine uppercase group-hover:translate-x-1 transition-transform">
+        Explorar <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+      </div>
+    </button>
+
+    <button type="button" onclick="filterCatalog('masculino', true)" class="text-left group relative bg-brand-surface border border-brand-border p-6 flex flex-col justify-between h-80 hover:shadow-xl hover:border-brand-gold transition-all duration-300">
+      <div>
+        <div class="w-12 h-12 rounded-full bg-brand-cream/60 flex items-center justify-center text-brand-wine mb-4 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[24px]">forest</span>
+        </div>
+        <span class="text-[10px] tracking-widest uppercase text-brand-gold font-bold">Amadeirado & Couro</span>
+        <h3 class="font-serif text-2xl text-brand-wine mt-1">Masculinos</h3>
+        <p class="text-xs text-brand-dark/70 mt-2 leading-relaxed">Notas amadeiradas profundas, vetiver raro e magnetismo nobre atemporal.</p>
+      </div>
+      <div class="flex items-center gap-1 text-[11px] font-bold tracking-widest text-brand-wine uppercase group-hover:translate-x-1 transition-transform">
+        Explorar <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+      </div>
+    </button>
+
+    <button type="button" onclick="filterCatalog('unissex', true)" class="text-left group relative bg-brand-surface border border-brand-border p-6 flex flex-col justify-between h-80 hover:shadow-xl hover:border-brand-gold transition-all duration-300">
+      <div>
+        <div class="w-12 h-12 rounded-full bg-brand-cream/60 flex items-center justify-center text-brand-wine mb-4 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[24px]">flare</span>
+        </div>
+        <span class="text-[10px] tracking-widest uppercase text-brand-gold font-bold">Compartilhado</span>
+        <h3 class="font-serif text-2xl text-brand-wine mt-1">Unissex</h3>
+        <p class="text-xs text-brand-dark/70 mt-2 leading-relaxed">Criações contemporâneas sem fronteiras para almas livres e expressivas.</p>
+      </div>
+      <div class="flex items-center gap-1 text-[11px] font-bold tracking-widest text-brand-wine uppercase group-hover:translate-x-1 transition-transform">
+        Explorar <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+      </div>
+    </button>
+
+    <button type="button" onclick="filterCatalog('nicho', true)" class="text-left group relative bg-brand-surface border border-brand-border p-6 flex flex-col justify-between h-80 hover:shadow-xl hover:border-brand-gold transition-all duration-300">
+      <div>
+        <div class="w-12 h-12 rounded-full bg-brand-cream/60 flex items-center justify-center text-brand-wine mb-4 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+        </div>
+        <span class="text-[10px] tracking-widest uppercase text-brand-gold font-bold">Alta Concentração</span>
+        <h3 class="font-serif text-2xl text-brand-wine mt-1">Nicho Raro</h3>
+        <p class="text-xs text-brand-dark/70 mt-2 leading-relaxed">Raridades artesanais produzidas em tiragens limitadas pelos grandes mestres.</p>
+      </div>
+      <div class="flex items-center gap-1 text-[11px] font-bold tracking-widest text-brand-wine uppercase group-hover:translate-x-1 transition-transform">
+        Explorar <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+      </div>
+    </button>
+
+    <a href="#decantes" class="group relative bg-brand-wine text-brand-cream p-6 flex flex-col justify-between h-80 hover:shadow-2xl transition-all duration-300">
+      <div>
+        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-brand-gold mb-4 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-[24px]">science</span>
+        </div>
+        <span class="text-[10px] tracking-widest uppercase text-brand-gold font-bold">5ml & 10ml</span>
+        <h3 class="font-serif text-2xl text-brand-cream mt-1">Decantes</h3>
+        <p class="text-xs text-brand-cream/80 mt-2 leading-relaxed">Experimente na pele antes do frasco full size. Pureza 100% preservada.</p>
+      </div>
+      <div class="flex items-center gap-1 text-[11px] font-bold tracking-widest text-brand-gold uppercase group-hover:translate-x-1 transition-transform">
+        Explorar <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+      </div>
+    </a>
+
+  </div>
+</section>

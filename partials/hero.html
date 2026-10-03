@@ -1,0 +1,61 @@
+<!-- ================= HERO (ESTILO EDITORIAL) ================= -->
+<section id="inicio" class="relative bg-brand-surface overflow-hidden border-b border-brand-border">
+  <div class="max-w-[1380px] mx-auto px-4 sm:px-8 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+    <!-- Título e chamadas -->
+    <div class="lg:col-span-6 space-y-6 z-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-cream/80 text-brand-wine text-[10px] tracking-[0.2em] uppercase font-bold rounded-sm border border-brand-gold/40">
+        <span class="material-symbols-outlined text-[14px]">diamond</span>
+        Alta Perfumaria & Ateliê de Decantes
+      </div>
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-brand-wine leading-[1.1] font-normal">
+        Descubra fragrâncias que contam histórias.
+      </h1>
+      <p class="text-base sm:text-lg text-brand-dark/80 leading-relaxed font-light max-w-xl">
+        Uma curadoria especial de perfumes importados para transformar fragrância em assinatura.
+      </p>
+
+      <div class="pt-2 flex flex-wrap items-center gap-4">
+        <a href="#catalogo" onclick="filterCatalog('todos')" class="px-8 py-4 bg-brand-wine text-white text-xs font-semibold tracking-[0.16em] uppercase hover:bg-brand-dark transition-all duration-300 shadow-md">
+          Explorar Perfumes
+        </a>
+        <a href="#sobre" class="px-8 py-4 bg-transparent border border-brand-wine/50 text-brand-wine text-xs font-semibold tracking-[0.16em] uppercase hover:bg-brand-cream transition-all duration-300">
+          Conhecer a Aveline
+        </a>
+      </div>
+
+      <!-- Selos de confiança -->
+      <div class="grid grid-cols-3 gap-4 pt-6 border-t border-brand-border/80">
+        <div>
+          <div class="font-serif text-2xl font-bold text-brand-wine">100%</div>
+          <div class="text-[11px] uppercase tracking-wider text-brand-dark/70 mt-0.5">Originais Lacrados</div>
+        </div>
+        <div>
+          <div class="font-serif text-2xl font-bold text-brand-wine">+80</div>
+          <div class="text-[11px] uppercase tracking-wider text-brand-dark/70 mt-0.5">Casas de Nicho</div>
+        </div>
+        <div>
+          <div class="font-serif text-2xl font-bold text-brand-wine">4.9/5</div>
+          <div class="text-[11px] uppercase tracking-wider text-brand-dark/70 mt-0.5">Satisfação de Clientes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Imagem editorial + produto em destaque (preenchido por products.js) -->
+    <div class="lg:col-span-6 relative flex justify-center">
+      <div class="relative w-full max-w-md lg:max-w-lg aspect-[4/5] rounded-sm overflow-hidden shadow-2xl bg-brand-cream/30 border border-brand-gold/30">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-DGmlPoq3GluiDccKCBkWvRwijqcUeyPvcH7cAT3Kjtklmz5La_SBr91zIGBks9GUKi6-tHUVSwuSyk-j7xuSerjmiBlJPC-Vd7G7nyNBBeIAb_E6E9xcUc9G-14gRIRnJ92Bx1g7i5RQcRXRY1gAURcR-1KxB1dpck7jBSbt3PSp9UfDOF1f4cX1FeG2cW2wC_t5_1xDxg7980BUcChUL_z_RefdomUHXcmQTQojbUQIlZZVcmWxnw" alt="Curadoria editorial Aveline Fragrance" class="w-full h-full object-cover"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-wine/80 via-transparent to-transparent pointer-events-none"></div>
+
+        <div id="hero-feature" class="absolute bottom-6 inset-x-6 bg-brand-surface/95 backdrop-blur-md p-5 border border-brand-gold/30 shadow-lg flex items-center justify-between gap-4">
+          <div class="space-y-2 w-full">
+            <div class="skeleton h-3 w-24"></div>
+            <div class="skeleton h-5 w-48"></div>
+            <div class="skeleton h-3 w-32"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

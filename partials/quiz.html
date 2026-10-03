@@ -1,0 +1,27 @@
+<!-- ================= BÚSSOLA OLFATIVA ================= -->
+<section class="bg-brand-surface py-16 border-y border-brand-border">
+  <div class="max-w-[1380px] mx-auto px-4 sm:px-8">
+    <div class="bg-brand-linen p-6 sm:p-12 border border-brand-gold/40 shadow-sm">
+      <div class="text-center max-w-2xl mx-auto space-y-2 mb-8">
+        <span class="text-xs font-bold tracking-[0.25em] text-brand-gold uppercase">Bússola Olfativa Interativa</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-brand-wine">Qual perfume combina com você?</h2>
+        <p class="text-sm text-brand-dark/70">
+          Selecione suas famílias olfativas prediletas para receber uma recomendação instantânea da curadoria AVELINE.
+        </p>
+      </div>
+
+      <!-- Famílias (os botões são gerados por quiz.js) -->
+      <div class="flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto mb-8" id="scent-tag-list"></div>
+
+      <!-- Recomendação -->
+      <div id="quiz-result" class="max-w-xl mx-auto bg-white p-6 border border-brand-gold/60 shadow-md flex flex-col sm:flex-row items-center gap-6 min-h-[160px]">
+        <div class="skeleton w-28 h-32 flex-shrink-0"></div>
+        <div class="space-y-2 w-full">
+          <div class="skeleton h-3 w-28"></div>
+          <div class="skeleton h-5 w-56"></div>
+          <div class="skeleton h-3 w-full"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

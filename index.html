@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AVELINE – Fragrance Importados | Boutique & Curadoria de Nicho</title>
+  <meta name="description" content="Curadoria de perfumes importados e perfumaria de nicho. Frascos originais lacrados e decantes 5ml e 10ml com envio para todo o Brasil."/>
+  <meta name="theme-color" content="#541623"/>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg"/>
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <!-- Tailwind (CDN) + tema AVELINE -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+
+  <!-- Estilos próprios -->
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="bg-brand-linen font-sans text-brand-dark antialiased selection:bg-brand-cream selection:text-brand-wine">
+
+  <!-- Cada parte do site fica em /partials e é carregada por assets/js/include.js -->
+  <div data-include="partials/announcement.html"></div>
+  <div data-include="partials/header.html"></div>
+
+  <main>
+    <div data-include="partials/hero.html"></div>
+    <div data-include="partials/categories.html"></div>
+    <div data-include="partials/quiz.html"></div>
+    <div data-include="partials/catalog.html"></div>
+    <div data-include="partials/decants.html"></div>
+    <div data-include="partials/about.html"></div>
+    <div data-include="partials/testimonials.html"></div>
+    <div data-include="partials/newsletter.html"></div>
+  </main>
+
+  <div data-include="partials/footer.html"></div>
+  <div data-include="partials/overlays.html"></div>
+
+  <!-- Bibliotecas -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Configuração e dados -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/supabase-client.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/data/fallback-products.js"></script>
+
+  <!-- Módulos da loja -->
+  <script src="assets/js/store/products.js"></script>
+  <script src="assets/js/store/cart.js"></script>
+  <script src="assets/js/store/wishlist.js"></script>
+  <script src="assets/js/store/quiz.js"></script>
+  <script src="assets/js/store/ui.js"></script>
+  <script src="assets/js/store/main.js"></script>
+
+  <!-- Carrega as partes por último (dispara "partials:loaded") -->
+  <script src="assets/js/include.js"></script>
+</body>
+</html>

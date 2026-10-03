@@ -1,0 +1,84 @@
+<!-- ================= RODAPÉ ================= -->
+<footer class="bg-brand-wine text-white pt-16 pb-12 border-t border-brand-gold/20">
+  <div class="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-12">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+
+      <!-- Marca -->
+      <div class="md:col-span-5 space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full border border-brand-gold/60 flex items-center justify-center p-1 bg-white/10">
+            <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="#FFFFFF" stroke-width="3">
+              <ellipse cx="50" cy="50" rx="36" ry="44" stroke="#CBB68E" stroke-width="2"/>
+              <ellipse cx="50" cy="50" rx="28" ry="36"/>
+              <line x1="50" y1="20" x2="50" y2="80" stroke="#CBB68E" stroke-width="2"/>
+              <line x1="32" y1="50" x2="68" y2="50" stroke="#CBB68E" stroke-width="2"/>
+              <circle cx="50" cy="50" r="4" fill="#CBB68E"/>
+            </svg>
+          </div>
+          <span class="font-serif text-2xl font-bold tracking-[0.25em] text-brand-cream">AVELINE</span>
+        </div>
+        <p class="text-xs text-brand-cream/80 max-w-sm leading-relaxed font-light">
+          Na AVELINE, acreditamos que perfume é mais do que uma fragrância. É presença, memória e identidade. Curadoria impecável dos maiores ateliês mundiais diretamente para a sua coleção íntima.
+        </p>
+        <div class="flex items-center gap-4 pt-2 text-xs">
+          <a href="#" data-link="instagram" target="_blank" rel="noopener" class="text-brand-cream hover:text-white flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">photo_camera</span> Instagram
+          </a>
+          <a href="#" data-link="whatsapp" target="_blank" rel="noopener" class="text-brand-cream hover:text-white flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">chat</span> WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Categorias -->
+      <div class="md:col-span-2 space-y-3">
+        <h4 class="text-xs font-bold tracking-widest uppercase text-brand-gold">Categorias</h4>
+        <ul class="space-y-2 text-xs text-brand-cream/80">
+          <li><a href="#catalogo" onclick="filterCatalog('todos')" class="hover:text-white transition-colors">Todos os Perfumes</a></li>
+          <li><a href="#catalogo" onclick="filterCatalog('feminino')" class="hover:text-white transition-colors">Femininos</a></li>
+          <li><a href="#catalogo" onclick="filterCatalog('masculino')" class="hover:text-white transition-colors">Masculinos</a></li>
+          <li><a href="#catalogo" onclick="filterCatalog('unissex')" class="hover:text-white transition-colors">Unissex</a></li>
+          <li><a href="#catalogo" onclick="filterCatalog('nicho')" class="hover:text-white transition-colors">Perfumaria de Nicho</a></li>
+          <li><a href="#decantes" class="hover:text-white transition-colors">Decantes 5ml & 10ml</a></li>
+        </ul>
+      </div>
+
+      <!-- Atendimento -->
+      <div class="md:col-span-2 space-y-3">
+        <h4 class="text-xs font-bold tracking-widest uppercase text-brand-gold">Atendimento</h4>
+        <ul class="space-y-2 text-xs text-brand-cream/80">
+          <li><a href="#" data-link="whatsapp" target="_blank" rel="noopener" class="hover:text-white transition-colors">Dúvidas Frequentes</a></li>
+          <li><a href="#" data-link="whatsapp" target="_blank" rel="noopener" class="hover:text-white transition-colors">Rastreamento de Pedido</a></li>
+          <li><a href="#" data-link="whatsapp" target="_blank" rel="noopener" class="hover:text-white transition-colors">Envios & Prazos</a></li>
+          <li><a href="#" data-link="whatsapp" target="_blank" rel="noopener" class="hover:text-white transition-colors">Trocas e Devoluções</a></li>
+          <li><a href="#" data-link="whatsapp" target="_blank" rel="noopener" class="hover:text-white transition-colors">Fale Conosco</a></li>
+        </ul>
+      </div>
+
+      <!-- Institucional -->
+      <div class="md:col-span-3 space-y-3">
+        <h4 class="text-xs font-bold tracking-widest uppercase text-brand-gold">Institucional</h4>
+        <ul class="space-y-2 text-xs text-brand-cream/80">
+          <li><a href="#sobre" class="hover:text-white transition-colors">Sobre a AVELINE</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Certificado de Autenticidade</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Termos de Uso</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Política de Privacidade</a></li>
+        </ul>
+        <div class="pt-4 flex items-center gap-2 text-[11px] text-brand-gold">
+          <span class="material-symbols-outlined text-[18px]">verified_user</span>
+          <span>100% Selo de Autenticidade Importada</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="pt-8 border-t border-brand-gold/20 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-cream/70 gap-4">
+      <p>© <span id="footer-year">2026</span> AVELINE Fragrance Importados. Todos os direitos reservados.</p>
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">lock</span> Ambiente Seguro SSL</span>
+        <a href="admin/" class="flex items-center gap-1 hover:text-white transition-colors"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span> Área restrita</a>
+      </div>
+    </div>
+  </div>
+</footer>

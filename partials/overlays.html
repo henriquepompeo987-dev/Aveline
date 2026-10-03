@@ -1,0 +1,150 @@
+<!-- ================= CAMADAS FLUTUANTES (drawers, modais, WhatsApp) ================= -->
+
+<!-- Fundo escurecido compartilhado -->
+<div id="backdrop" class="backdrop" onclick="closeAllOverlays()"></div>
+
+<!-- Botão flutuante de WhatsApp -->
+<a href="#" data-link="whatsapp-hello" target="_blank" rel="noopener" class="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center" title="Fale conosco no WhatsApp" aria-label="WhatsApp">
+  <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+  </svg>
+</a>
+
+<!-- ========== MENU MOBILE ========== -->
+<aside id="mobile-menu" class="drawer drawer-left fixed inset-y-0 left-0 z-50 w-full max-w-xs bg-brand-surface shadow-2xl flex flex-col border-r border-brand-gold/30" aria-label="Menu">
+  <div class="p-6 border-b border-brand-border flex items-center justify-between">
+    <span class="font-serif text-xl font-bold tracking-[0.25em] text-brand-wine">AVELINE</span>
+    <button onclick="closeAllOverlays()" class="text-brand-dark/70 hover:text-brand-wine" aria-label="Fechar menu">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+  <nav class="flex-1 overflow-y-auto p-6 flex flex-col gap-5 text-xs tracking-[0.16em] uppercase font-semibold text-brand-dark/80">
+    <a href="#inicio" onclick="closeAllOverlays()" class="hover:text-brand-wine">Início</a>
+    <a href="#catalogo" onclick="filterCatalog('todos'); closeAllOverlays()" class="hover:text-brand-wine">Perfumes</a>
+    <a href="#catalogo" onclick="filterCatalog('feminino'); closeAllOverlays()" class="hover:text-brand-wine">Femininos</a>
+    <a href="#catalogo" onclick="filterCatalog('masculino'); closeAllOverlays()" class="hover:text-brand-wine">Masculinos</a>
+    <a href="#catalogo" onclick="filterCatalog('unissex'); closeAllOverlays()" class="hover:text-brand-wine">Unissex</a>
+    <a href="#catalogo" onclick="filterCatalog('nicho'); closeAllOverlays()" class="hover:text-brand-wine">Nicho</a>
+    <a href="#decantes" onclick="closeAllOverlays()" class="hover:text-brand-wine">Decantes</a>
+    <a href="#catalogo" onclick="filterCatalog('lancamentos'); closeAllOverlays()" class="hover:text-brand-wine">Lançamentos</a>
+    <a href="#sobre" onclick="closeAllOverlays()" class="hover:text-brand-wine">Sobre a Aveline</a>
+    <button onclick="openAccountModal()" class="text-left uppercase tracking-[0.16em] hover:text-brand-wine flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">person</span> Minha conta
+    </button>
+  </nav>
+</aside>
+
+<!-- ========== SACOLA (CARRINHO) ========== -->
+<aside id="cart-drawer" class="drawer drawer-right fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl flex flex-col border-l border-brand-gold/30" aria-label="Sacola">
+  <div class="p-6 bg-brand-linen border-b border-brand-border flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-brand-wine">local_mall</span>
+      <h3 class="font-serif text-xl text-brand-wine font-bold">Sacola Exclusiva (<span id="drawer-count">0</span>)</h3>
+    </div>
+    <button onclick="closeAllOverlays()" class="text-brand-dark/70 hover:text-brand-wine" aria-label="Fechar sacola">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <!-- Itens -->
+  <div class="flex-1 overflow-y-auto p-6 space-y-4" id="cart-items-list"></div>
+
+  <!-- Totais e finalização pelo WhatsApp -->
+  <div class="p-6 bg-brand-linen border-t border-brand-border space-y-4" id="cart-footer">
+    <div class="space-y-1.5 text-xs text-brand-dark/80">
+      <div class="flex justify-between">
+        <span>Subtotal</span>
+        <span id="cart-subtotal" class="font-semibold text-brand-wine">R$ 0,00</span>
+      </div>
+      <div class="flex justify-between text-brand-gold">
+        <span>Embalagem Presente com Seda</span>
+        <span class="font-semibold">Cortesia</span>
+      </div>
+      <div class="flex justify-between text-sm font-bold text-brand-wine pt-2 border-t border-brand-border">
+        <span>Total Estimado</span>
+        <span id="cart-total" class="text-base">R$ 0,00</span>
+      </div>
+    </div>
+
+    <div class="space-y-2 pt-2 text-xs">
+      <input type="text" id="order-customer-name" autocomplete="name" placeholder="Seu Nome Completo" class="w-full px-3 py-2 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine"/>
+      <div class="grid grid-cols-2 gap-2">
+        <input type="text" id="order-customer-cep" inputmode="numeric" autocomplete="postal-code" placeholder="CEP de Entrega" maxlength="9" class="w-full px-3 py-2 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine"/>
+        <input type="tel" id="order-customer-phone" autocomplete="tel" placeholder="Seu WhatsApp" class="w-full px-3 py-2 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine"/>
+      </div>
+    </div>
+
+    <button onclick="checkoutViaWhatsApp()" class="w-full py-4 bg-brand-wine text-white text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-all flex items-center justify-center gap-2 shadow-lg">
+      <span class="material-symbols-outlined text-[18px]">chat</span>
+      Finalizar pedido pelo WhatsApp
+    </button>
+    <p class="text-[10px] text-center text-brand-dark/60">Você será direcionado ao WhatsApp para confirmar pagamento e frete com nosso concierge.</p>
+  </div>
+</aside>
+
+<!-- ========== FAVORITOS ========== -->
+<aside id="wishlist-drawer" class="drawer drawer-right fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl flex flex-col border-l border-brand-gold/30" aria-label="Favoritos">
+  <div class="p-6 bg-brand-linen border-b border-brand-border flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-brand-wine">favorite</span>
+      <h3 class="font-serif text-xl text-brand-wine font-bold">Meus Favoritos</h3>
+    </div>
+    <button onclick="closeAllOverlays()" class="text-brand-dark/70 hover:text-brand-wine" aria-label="Fechar favoritos">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+  <div class="flex-1 overflow-y-auto p-6 space-y-4" id="wishlist-items"></div>
+</aside>
+
+<!-- ========== DETALHE DO PRODUTO / PIRÂMIDE OLFATIVA ========== -->
+<div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="pm-name">
+  <div class="absolute inset-0" onclick="closeAllOverlays()"></div>
+  <div class="modal-panel relative w-full max-w-5xl bg-brand-surface border border-brand-gold/40 shadow-2xl">
+    <button onclick="closeAllOverlays()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 border border-brand-border flex items-center justify-center text-brand-dark/70 hover:text-brand-wine" aria-label="Fechar">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+    <div id="product-modal-content"></div>
+  </div>
+</div>
+
+<!-- ========== BUSCA ========== -->
+<div id="search-modal" class="modal !items-start !pt-20" role="dialog" aria-modal="true" aria-label="Pesquisar">
+  <div class="absolute inset-0" onclick="closeAllOverlays()"></div>
+  <div class="modal-panel relative w-full max-w-2xl bg-white border border-brand-gold/40 shadow-2xl">
+    <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-border">
+      <span class="material-symbols-outlined text-brand-gold">search</span>
+      <input id="search-input" type="search" oninput="runSearch(this.value)" placeholder="Busque por perfume, casa, nota ou família olfativa..." class="flex-1 text-sm bg-transparent focus:outline-none"/>
+      <button onclick="closeAllOverlays()" class="text-brand-dark/60 hover:text-brand-wine" aria-label="Fechar busca">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div id="search-results" class="max-h-[60vh] overflow-y-auto p-3"></div>
+  </div>
+</div>
+
+<!-- ========== MINHA CONTA ========== -->
+<div id="account-modal" class="modal" role="dialog" aria-modal="true" aria-label="Minha conta">
+  <div class="absolute inset-0" onclick="closeAllOverlays()"></div>
+  <div class="modal-panel relative w-full max-w-md bg-brand-surface border border-brand-gold/40 shadow-2xl p-8 text-center space-y-5">
+    <button onclick="closeAllOverlays()" class="absolute top-4 right-4 text-brand-dark/60 hover:text-brand-wine" aria-label="Fechar">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <div class="w-14 h-14 mx-auto rounded-full bg-brand-cream flex items-center justify-center text-brand-wine">
+      <span class="material-symbols-outlined text-[28px]">support_agent</span>
+    </div>
+    <div class="space-y-1">
+      <span class="text-[10px] font-bold tracking-[0.25em] text-brand-gold uppercase">Concierge Privé</span>
+      <h3 class="font-serif text-2xl text-brand-wine">Atendimento personalizado</h3>
+      <p class="text-sm text-brand-dark/70">Acompanhe pedidos, tire dúvidas sobre notas e receba indicações exclusivas direto com nossa equipe.</p>
+    </div>
+    <a href="#" data-link="whatsapp-hello" target="_blank" rel="noopener" class="block w-full py-3 bg-brand-wine text-white text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-colors">
+      Falar com o concierge
+    </a>
+    <a href="admin/" class="inline-flex items-center gap-1 text-[11px] text-brand-dark/60 hover:text-brand-wine">
+      <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span> Acesso administrativo
+    </a>
+  </div>
+</div>
+
+<!-- Aviso rápido -->
+<div id="toast" role="status" aria-live="polite"></div>

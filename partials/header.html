@@ -1,0 +1,59 @@
+<!-- ================= CABEÇALHO FIXO ================= -->
+<header class="sticky top-0 z-40 w-full glass-nav border-b border-brand-border/60 transition-all duration-300">
+  <div class="max-w-[1380px] mx-auto px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
+
+    <!-- Menu mobile -->
+    <button onclick="toggleMobileMenu(true)" class="lg:hidden p-2 -ml-2 text-brand-dark/80 hover:text-brand-wine" aria-label="Abrir menu">
+      <span class="material-symbols-outlined text-[24px]">menu</span>
+    </button>
+
+    <!-- Logo -->
+    <a href="#inicio" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-full border border-brand-gold/60 flex items-center justify-center p-1 bg-white/60">
+        <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="#541623" stroke-width="3">
+          <ellipse cx="50" cy="50" rx="36" ry="44" stroke="#CBB68E" stroke-width="2"/>
+          <ellipse cx="50" cy="50" rx="28" ry="36"/>
+          <line x1="50" y1="20" x2="50" y2="80" stroke="#CBB68E" stroke-width="2"/>
+          <line x1="32" y1="50" x2="68" y2="50" stroke="#CBB68E" stroke-width="2"/>
+          <circle cx="50" cy="50" r="4" fill="#541623"/>
+        </svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-serif text-xl sm:text-2xl font-bold tracking-[0.25em] text-brand-wine leading-none">AVELINE</span>
+        <span class="hidden sm:block text-[8px] font-semibold tracking-[0.45em] text-brand-gold uppercase mt-1">Fragrance Importados</span>
+      </div>
+    </a>
+
+    <!-- Navegação principal -->
+    <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-[11px] tracking-[0.16em] uppercase font-semibold text-brand-dark/80" id="main-nav">
+      <a href="#inicio" class="nav-link" data-section="inicio">Início</a>
+      <a href="#catalogo" onclick="filterCatalog('todos')" class="nav-link" data-section="catalogo">Perfumes</a>
+      <a href="#catalogo" onclick="filterCatalog('feminino')" class="nav-link">Femininos</a>
+      <a href="#catalogo" onclick="filterCatalog('masculino')" class="nav-link">Masculinos</a>
+      <a href="#catalogo" onclick="filterCatalog('unissex')" class="nav-link">Unissex</a>
+      <a href="#catalogo" onclick="filterCatalog('nicho')" class="nav-link">Nicho</a>
+      <a href="#decantes" class="nav-link" data-section="decantes">Decantes</a>
+      <a href="#catalogo" onclick="filterCatalog('lancamentos')" class="nav-link">Lançamentos</a>
+      <a href="#sobre" class="nav-link whitespace-nowrap" data-section="sobre">Sobre</a>
+    </nav>
+
+    <!-- Ícones -->
+    <div class="flex items-center gap-1 sm:gap-3">
+      <button onclick="toggleSearch(true)" class="p-2 text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50" title="Pesquisar" aria-label="Pesquisar">
+        <span class="material-symbols-outlined text-[22px]">search</span>
+      </button>
+      <button onclick="openAccountModal()" class="hidden sm:inline-flex p-2 text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50" title="Minha Conta" aria-label="Minha conta">
+        <span class="material-symbols-outlined text-[22px]">person</span>
+      </button>
+      <button onclick="toggleWishlistDrawer(true)" class="p-2 text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50 relative" title="Favoritos" aria-label="Favoritos">
+        <span class="material-symbols-outlined text-[22px]">favorite</span>
+        <span id="wishlist-badge" class="hidden absolute top-1 right-1 bg-brand-wine text-white text-[9px] w-3.5 h-3.5 rounded-full items-center justify-center font-bold">0</span>
+      </button>
+      <button onclick="toggleCart(true)" class="p-2 text-brand-wine bg-brand-cream/60 hover:bg-brand-cream transition-colors rounded-full relative flex items-center gap-1.5 px-3" title="Sacola" aria-label="Sacola">
+        <span class="material-symbols-outlined text-[20px]">local_mall</span>
+        <span id="cart-counter" class="text-xs font-bold text-brand-wine">0</span>
+      </button>
+    </div>
+
+  </div>
+</header>
