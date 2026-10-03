@@ -16,7 +16,7 @@ window.AVELINE_CONFIG = {
   STORAGE_BUCKET: 'produtos',
 
   // WhatsApp que recebe os pedidos (somente números, com DDI + DDD)
-  WHATSAPP_NUMBER: '5511999999999',
+  WHATSAPP_NUMBER: '5545991321583',
 
   INSTAGRAM_URL: 'https://instagram.com',
 };
