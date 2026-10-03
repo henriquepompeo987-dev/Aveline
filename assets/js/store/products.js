@@ -99,9 +99,9 @@ function productCardHtml(p) {
           '<span class="material-symbols-outlined text-[18px] ' + (liked ? 'is-filled' : '') + '">favorite</span>' +
         '</button>' +
       '</div>' +
-      '<div class="p-6 flex flex-col flex-1 gap-2">' +
-        '<span class="text-[10px] tracking-[0.22em] uppercase text-brand-gold font-bold">' + esc(p.house) + (p.is_niche ? ' • Nicho' : '') + '</span>' +
-        '<h3 class="font-serif text-2xl text-brand-wine leading-tight cursor-pointer hover:underline decoration-brand-gold/60 underline-offset-4" onclick="openProduct(\'' + p.id + '\')">' + esc(p.name) + '</h3>' +
+      '<div class="p-4 sm:p-6 flex flex-col flex-1 gap-2">' +
+        '<span class="text-[10px] tracking-[0.22em] uppercase text-brand-gold font-bold truncate">' + esc(p.house) + (p.is_niche ? ' • Nicho' : '') + '</span>' +
+        '<h3 class="font-serif text-xl sm:text-2xl text-brand-wine leading-tight cursor-pointer hover:underline decoration-brand-gold/60 underline-offset-4" onclick="openProduct(\'' + p.id + '\')">' + esc(p.name) + '</h3>' +
         '<p class="text-xs text-brand-dark/60">' + esc(productSpec(p)) + ' • ' + esc(CATEGORY_LABELS[p.category] || '') + '</p>' +
         (p.short_description ? '<p class="text-sm text-brand-dark/75 leading-relaxed line-clamp-2">' + esc(p.short_description) + '</p>' : '') +
         '<div class="flex flex-wrap gap-1.5 pt-1">' + families + '</div>' +

@@ -164,6 +164,91 @@ body.is-locked { overflow: hidden; }
 }
 @keyframes shimmer { to { background-position: -200% 0; } }
 
+/* ---------- Mobile: ajustes gerais ---------- */
+@media (max-width: 639px) {
+  /* Hero: título menor, botões empilhados */
+  #inicio h1 { font-size: 2rem; line-height: 1.15; }
+  #inicio .grid.grid-cols-3 { grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+  #inicio .grid.grid-cols-3 .font-serif { font-size: 1.25rem; }
+
+  /* Hero card destaque: compacto */
+  #hero-feature { padding: .75rem 1rem; gap: .5rem; flex-direction: column; align-items: flex-start; }
+  #hero-feature button { width: 100%; text-align: center; }
+
+  /* Categorias: cards menores, 2 por linha */
+  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 > * { height: auto; min-height: 200px; padding: 1rem; }
+  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 h3 { font-size: 1.15rem; }
+  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 p { display: none; }
+
+  /* Catálogo: filtros rolam na horizontal */
+  #catalog-filters { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
+  #catalog-filters::-webkit-scrollbar { display: none; }
+  #catalog-filters .cat-pill { flex-shrink: 0; }
+
+  /* Bússola: tags menores */
+  .tag-btn { padding: .35rem .65rem; font-size: .65rem; }
+
+  /* Quiz result: empilhado */
+  #quiz-result { flex-direction: column; text-align: center; padding: 1rem; }
+  #quiz-result .product-media { width: 80px; height: 96px; }
+
+  /* Depoimentos: empilhados (1 coluna) */
+  .grid.grid-cols-1.md\:grid-cols-3 > figure { padding: 1.25rem; }
+
+  /* Footer: copyright empilha */
+  footer .grid { gap: 1.5rem; }
+
+  /* Modal do produto: ocupa tudo */
+  .modal-panel { max-height: 100vh; max-height: 100dvh; border-radius: 0; }
+  #product-modal .modal-panel { max-width: 100%; }
+
+  /* Botões do hero menores */
+  #inicio a[href="#catalogo"],
+  #inicio a[href="#sobre"] { padding: .75rem 1.25rem; font-size: .65rem; }
+
+  /* WhatsApp flutuante: menor no mobile */
+  a[data-link="whatsapp-hello"] { padding: .75rem; bottom: 1rem; right: 1rem; }
+  a[data-link="whatsapp-hello"] svg { width: 1.5rem; height: 1.5rem; }
+
+  /* Sobre: padding menor */
+  #sobre { padding-top: 3rem; padding-bottom: 3rem; }
+  #sobre .aspect-\[3\/4\] { aspect-ratio: 16/10; }
+
+  /* Decantes: grid 1 coluna */
+  #decants-grid { grid-template-columns: 1fr; }
+
+  /* Modal do produto: imagem menor para caber info */
+  #product-modal-content .product-media { aspect-ratio: 1/1 !important; max-height: 55vw; }
+
+  /* Newsletter: input empilhado */
+  #newsletter form { flex-direction: column; }
+  #newsletter input[type="email"] { width: 100%; }
+
+  /* Sacola: campo nome e inputs menores */
+  #cart-footer .grid-cols-2 { grid-template-columns: 1fr; }
+}
+
+/* ---------- Tablet: ajuste intermediário ---------- */
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* Categorias: 3 colunas no tablet */
+  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 { grid-template-columns: repeat(3, 1fr); }
+  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 > * { height: auto; min-height: 240px; }
+}
+
+/* ---------- Touch: hover desativado ---------- */
+@media (hover: none) {
+  .group:hover .product-media img { transform: none; }
+}
+
+/* ---------- Safe area (iPhone com notch) ---------- */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer { padding-bottom: calc(3rem + env(safe-area-inset-bottom)); }
+  #cart-drawer .p-6:last-child,
+  .drawer nav { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+  a[data-link="whatsapp-hello"] { bottom: calc(1rem + env(safe-area-inset-bottom)); }
+}
+
 /* ---------- Acessibilidade ---------- */
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {

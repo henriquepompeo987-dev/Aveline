@@ -97,10 +97,10 @@
 </aside>
 
 <!-- ========== DETALHE DO PRODUTO / PIRÂMIDE OLFATIVA ========== -->
-<div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="pm-name">
-  <div class="absolute inset-0" onclick="closeAllOverlays()"></div>
-  <div class="modal-panel relative w-full max-w-5xl bg-brand-surface border border-brand-gold/40 shadow-2xl">
-    <button onclick="closeAllOverlays()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 border border-brand-border flex items-center justify-center text-brand-dark/70 hover:text-brand-wine" aria-label="Fechar">
+<div id="product-modal" class="modal !p-0 sm:!p-4" role="dialog" aria-modal="true" aria-labelledby="pm-name">
+  <div class="absolute inset-0 hidden sm:block" onclick="closeAllOverlays()"></div>
+  <div class="modal-panel relative w-full max-w-5xl bg-brand-surface border-0 sm:border border-brand-gold/40 shadow-2xl max-h-[100vh] sm:max-h-[calc(100vh-2rem)]">
+    <button onclick="closeAllOverlays()" class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-9 h-9 rounded-full bg-white/90 border border-brand-border flex items-center justify-center text-brand-dark/70 hover:text-brand-wine" aria-label="Fechar">
       <span class="material-symbols-outlined text-[20px]">close</span>
     </button>
     <div id="product-modal-content"></div>
@@ -108,7 +108,7 @@
 </div>
 
 <!-- ========== BUSCA ========== -->
-<div id="search-modal" class="modal !items-start !pt-20" role="dialog" aria-modal="true" aria-label="Pesquisar">
+<div id="search-modal" class="modal !items-start !pt-4 sm:!pt-20" role="dialog" aria-modal="true" aria-label="Pesquisar">
   <div class="absolute inset-0" onclick="closeAllOverlays()"></div>
   <div class="modal-panel relative w-full max-w-2xl bg-white border border-brand-gold/40 shadow-2xl">
     <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-border">
