@@ -29,7 +29,7 @@ returns boolean
 language sql
 stable
 security definer
-set search_path = public
+set search_path = ''
 as $$
   select exists (
     select 1
@@ -40,8 +40,9 @@ as $$
   );
 $$;
 
-revoke all on function public.is_admin() from public;
-grant execute on function public.is_admin() to anon, authenticated;
+-- Só usuários logados precisam chamar is_admin(); anon nunca é admin.
+revoke all on function public.is_admin() from public, anon;
+grant execute on function public.is_admin() to authenticated;
 
 alter table public.admins enable row level security;
 
@@ -95,6 +96,7 @@ create index if not exists products_category_idx    on public.products (category
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
+set search_path = ''
 as $$
 begin
   new.updated_at := now();
@@ -109,9 +111,17 @@ create trigger products_set_updated_at
 
 alter table public.products enable row level security;
 
+-- Visitante (anon) enxerga só os ativos. Não chama is_admin(): anon
+-- nunca é admin e assim a função fica fora do alcance do público.
 drop policy if exists "products: público lê ativos" on public.products;
 create policy "products: público lê ativos" on public.products
-  for select to anon, authenticated
+  for select to anon
+  using (active = true);
+
+-- Logado vê os ativos; se for admin, vê também os inativos.
+drop policy if exists "products: logado lê" on public.products;
+create policy "products: logado lê" on public.products
+  for select to authenticated
   using (active = true or public.is_admin());
 
 drop policy if exists "products: admin insere" on public.products;
@@ -142,10 +152,15 @@ create table if not exists public.newsletter (
 
 alter table public.newsletter enable row level security;
 
+-- Qualquer visitante se inscreve, mas o e-mail precisa ter formato válido
+-- e tamanho sensato — evita lixo/spam gravado na tabela.
 drop policy if exists "newsletter: qualquer um se inscreve" on public.newsletter;
 create policy "newsletter: qualquer um se inscreve" on public.newsletter
   for insert to anon, authenticated
-  with check (true);
+  with check (
+    length(email) between 6 and 254
+    and email ~ '^[^@[:space:]]+@[^@[:space:]]+\.[^@[:space:]]{2,}$'
+  );
 
 drop policy if exists "newsletter: admin lê" on public.newsletter;
 create policy "newsletter: admin lê" on public.newsletter
@@ -171,10 +186,14 @@ on conflict (id) do update
       file_size_limit = excluded.file_size_limit,
       allowed_mime_types = excluded.allowed_mime_types;
 
+-- O bucket é público: as imagens continuam abrindo pela URL pública sem
+-- passar por esta policy. Ela controla apenas a API de listagem, que fica
+-- restrita ao admin para ninguém enumerar o conteúdo do bucket.
 drop policy if exists "produtos: leitura pública" on storage.objects;
-create policy "produtos: leitura pública" on storage.objects
-  for select to anon, authenticated
-  using (bucket_id = 'produtos');
+drop policy if exists "produtos: admin lista" on storage.objects;
+create policy "produtos: admin lista" on storage.objects
+  for select to authenticated
+  using (bucket_id = 'produtos' and public.is_admin());
 
 drop policy if exists "produtos: admin envia" on storage.objects;
 create policy "produtos: admin envia" on storage.objects
