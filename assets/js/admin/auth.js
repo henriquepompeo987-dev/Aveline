@@ -1,10 +1,13 @@
 /* =====================================================================
-   AVELINE Admin – Autenticação (Supabase Auth + GitHub)
-   Qualquer pessoa pode entrar com GitHub, mas só quem está na tabela
+   AVELINE Admin – Autenticação (Supabase Auth)
+   Suporta GitHub OAuth, Google OAuth e e-mail/senha.
+   Qualquer pessoa pode entrar, mas só quem está na tabela
    public.admins consegue gravar (garantido pelas políticas RLS).
    ===================================================================== */
 
 const auth = { userId: null, ready: false, checking: false };
+
+let isSignUpMode = false;
 
 const VIEWS = ['loading', 'setup', 'login', 'denied', 'app'];
 
@@ -20,6 +23,17 @@ function showLoginError(message) {
   if (!el) return;
   el.textContent = message;
   el.classList.toggle('hidden', !message);
+  const ok = document.getElementById('login-success');
+  if (ok) ok.classList.add('hidden');
+}
+
+function showLoginSuccess(message) {
+  const el = document.getElementById('login-success');
+  if (!el) return;
+  el.textContent = message;
+  el.classList.toggle('hidden', !message);
+  const err = document.getElementById('login-error');
+  if (err) err.classList.add('hidden');
 }
 
 /** Lê erros devolvidos pelo OAuth na URL (?error=... ou #error=...). */
@@ -38,6 +52,8 @@ function cleanAuthParamsFromUrl() {
   }
 }
 
+/* ---------- OAuth ---------- */
+
 async function signInWithGitHub() {
   const btn = document.getElementById('btn-github');
   if (btn) btn.disabled = true;
@@ -54,6 +70,70 @@ async function signInWithGitHub() {
   }
 }
 
+async function signInWithGoogle() {
+  const btn = document.getElementById('btn-google');
+  if (btn) btn.disabled = true;
+  showLoginError('');
+
+  const { error } = await window.sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: location.origin + location.pathname },
+  });
+
+  if (error) {
+    if (btn) btn.disabled = false;
+    showLoginError('Não foi possível iniciar o login com Google: ' + error.message);
+  }
+}
+
+/* ---------- Email/Senha ---------- */
+
+function toggleAuthMode() {
+  isSignUpMode = !isSignUpMode;
+  const btn = document.getElementById('btn-email-auth');
+  const text = document.getElementById('auth-mode-text');
+  const toggle = document.getElementById('auth-mode-toggle');
+  if (btn) btn.textContent = isSignUpMode ? 'Criar conta' : 'Entrar com e-mail';
+  if (text) text.textContent = isSignUpMode ? 'Já tem conta?' : 'Não tem conta?';
+  if (toggle) toggle.textContent = isSignUpMode ? 'Fazer login' : 'Criar conta';
+  showLoginError('');
+  showLoginSuccess('');
+}
+
+async function handleEmailAuth(e) {
+  e.preventDefault();
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value;
+  const btn = document.getElementById('btn-email-auth');
+
+  if (!email || !password) return;
+  if (btn) btn.disabled = true;
+  showLoginError('');
+  showLoginSuccess('');
+
+  if (isSignUpMode) {
+    const { error } = await window.sb.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: location.origin + location.pathname },
+    });
+    if (btn) btn.disabled = false;
+    if (error) {
+      showLoginError('Erro ao criar conta: ' + error.message);
+    } else {
+      showLoginSuccess('Conta criada! Verifique seu e-mail para confirmar o cadastro.');
+    }
+  } else {
+    const { error } = await window.sb.auth.signInWithPassword({ email, password });
+    if (btn) btn.disabled = false;
+    if (error) {
+      showLoginError('Erro ao entrar: ' + error.message);
+    }
+  }
+}
+
+/* ---------- Comum ---------- */
+
 async function signOut() {
   await window.sb.auth.signOut();
   auth.userId = null;
@@ -69,7 +149,7 @@ function fillUserChip(user) {
     avatar.src = meta.avatar_url;
     avatar.classList.remove('hidden');
   }
-  if (name) name.textContent = meta.user_name ? '@' + meta.user_name : (user.email || '');
+  if (name) name.textContent = meta.user_name ? '@' + meta.user_name : (meta.full_name || user.email || '');
 }
 
 function showDenied(user, detail) {
@@ -93,13 +173,12 @@ async function handleSession(session) {
     showView('login');
     const oauthError = readOAuthError();
     if (oauthError) {
-      showLoginError('O GitHub/Supabase recusou o login: ' + oauthError);
+      showLoginError('O provedor recusou o login: ' + oauthError);
       cleanAuthParamsFromUrl();
     }
     return;
   }
 
-  // Renovação de token / evento repetido do mesmo usuário: nada a fazer
   if (auth.userId === session.user.id && (auth.ready || auth.checking)) return;
 
   auth.userId = session.user.id;
