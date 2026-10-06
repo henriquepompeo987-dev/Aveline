@@ -165,6 +165,62 @@ function toggleCart(open) {
   }
 }
 
+/* ----- ViaCEP – consulta e validação de CEP ----- */
+let cepTimer = null;
+let lastCepData = null;
+
+function onCepInput(el) {
+  let v = el.value.replace(/\D/g, '');
+  if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5, 8);
+  el.value = v;
+
+  clearTimeout(cepTimer);
+  lastCepData = null;
+  hideCepResult();
+
+  if (v.replace(/\D/g, '').length === 8) {
+    cepTimer = setTimeout(() => fetchCep(v.replace(/\D/g, '')), 350);
+  }
+}
+
+function hideCepResult() {
+  var r = document.getElementById('cep-result');
+  var e = document.getElementById('cep-error');
+  if (r) r.classList.add('hidden');
+  if (e) { e.classList.add('hidden'); e.textContent = ''; }
+}
+
+function showCepError(msg) {
+  hideCepResult();
+  var e = document.getElementById('cep-error');
+  if (e) { e.textContent = msg; e.classList.remove('hidden'); }
+}
+
+async function fetchCep(digits) {
+  var spinner = document.getElementById('cep-spinner');
+  if (spinner) spinner.classList.remove('hidden');
+
+  try {
+    var res = await fetch('https://viacep.com.br/ws/' + digits + '/json/');
+    var data = await res.json();
+
+    if (data.erro) {
+      showCepError('CEP não encontrado. Verifique e tente novamente.');
+      return;
+    }
+    lastCepData = data;
+    var parts = [data.logradouro, data.bairro, data.localidade + ' – ' + data.uf].filter(Boolean);
+    var addr = document.getElementById('cep-address');
+    var box = document.getElementById('cep-result');
+    if (addr) addr.textContent = parts.join(', ');
+    if (box) box.classList.remove('hidden');
+  } catch (_) {
+    showCepError('Não foi possível consultar o CEP. Tente novamente.');
+  } finally {
+    if (spinner) spinner.classList.add('hidden');
+  }
+}
+
 function checkoutViaWhatsApp() {
   if (!cart.length) return showToast('Sua sacola está vazia.', 'error');
 
@@ -179,6 +235,21 @@ function checkoutViaWhatsApp() {
     return;
   }
 
+  const cepDigits = cep.replace(/\D/g, '');
+  if (cepDigits.length > 0 && cepDigits.length !== 8) {
+    showToast('CEP inválido — precisa ter 8 dígitos.', 'error');
+    const el = document.getElementById('order-customer-cep');
+    if (el) el.focus();
+    return;
+  }
+
+  if (cepDigits.length === 8 && !lastCepData) {
+    showToast('CEP não reconhecido. Corrija antes de prosseguir.', 'error');
+    const el = document.getElementById('order-customer-cep');
+    if (el) el.focus();
+    return;
+  }
+
   const lines = [
     'Olá, AVELINE! Gostaria de finalizar meu pedido:',
     '',
@@ -188,7 +259,12 @@ function checkoutViaWhatsApp() {
     '',
     'Nome: ' + name.trim(),
   ];
-  if (cep.trim()) lines.push('CEP: ' + cep.trim());
+  if (lastCepData) {
+    const addr = [lastCepData.logradouro, lastCepData.bairro, lastCepData.localidade + ' – ' + lastCepData.uf].filter(Boolean).join(', ');
+    lines.push('CEP: ' + cep.trim() + ' (' + addr + ')');
+  } else if (cep.trim()) {
+    lines.push('CEP: ' + cep.trim());
+  }
   if (phone.trim()) lines.push('WhatsApp: ' + phone.trim());
 
   trackCheckout(cart, cartTotal(), name.trim());

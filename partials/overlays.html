@@ -69,9 +69,21 @@
     <div class="space-y-2 pt-2 text-xs">
       <input type="text" id="order-customer-name" autocomplete="name" placeholder="Seu Nome Completo" class="w-full px-3 py-2 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine"/>
       <div class="grid grid-cols-2 gap-2">
-        <input type="text" id="order-customer-cep" inputmode="numeric" autocomplete="postal-code" placeholder="CEP de Entrega" maxlength="9" class="w-full px-3 py-2 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine"/>
+        <div class="relative">
+          <input type="text" id="order-customer-cep" inputmode="numeric" autocomplete="postal-code" placeholder="CEP de Entrega" maxlength="9" class="w-full px-3 py-2 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine" oninput="onCepInput(this)"/>
+          <span id="cep-spinner" class="hidden absolute right-2 top-1/2 -translate-y-1/2">
+            <span class="material-symbols-outlined text-[14px] text-brand-gold animate-spin">progress_activity</span>
+          </span>
+        </div>
         <input type="tel" id="order-customer-phone" autocomplete="tel" placeholder="Seu WhatsApp" class="w-full px-3 py-2 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine"/>
       </div>
+      <div id="cep-result" class="hidden px-3 py-2 bg-white border border-brand-border text-[11px] text-brand-dark/80 leading-relaxed">
+        <div class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-brand-gold text-[16px] mt-0.5">location_on</span>
+          <span id="cep-address"></span>
+        </div>
+      </div>
+      <p id="cep-error" class="hidden text-[11px] text-red-600 px-1"></p>
     </div>
 
     <button onclick="checkoutViaWhatsApp()" class="w-full py-4 bg-brand-wine text-white text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-all flex items-center justify-center gap-2 shadow-lg">
