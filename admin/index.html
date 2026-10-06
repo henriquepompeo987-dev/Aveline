@@ -102,6 +102,7 @@
           <nav class="flex items-center gap-1 text-[11px] font-semibold tracking-[0.14em] uppercase">
             <button onclick="switchTab('produtos')" data-tab="produtos" class="admin-tab is-active">Produtos</button>
             <button onclick="switchTab('metricas')" data-tab="metricas" class="admin-tab">Métricas</button>
+            <button onclick="switchTab('log')" data-tab="log" class="admin-tab">Log</button>
             <button onclick="switchTab('newsletter')" data-tab="newsletter" class="admin-tab">Newsletter</button>
           </nav>
         </div>
@@ -216,6 +217,30 @@
               </tr>
             </thead>
             <tbody id="events-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== ABA LOG DE CONTAS ===== -->
+      <section id="tab-log" class="hidden space-y-6">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <span class="text-xs font-semibold tracking-[0.25em] text-brand-gold uppercase">Acessos</span>
+            <h1 class="font-serif text-3xl text-brand-wine">Contas cadastradas <span id="accounts-count" class="text-brand-gold text-xl"></span></h1>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="loadAccounts()" class="px-4 py-3 bg-white border border-brand-border text-brand-wine text-[11px] font-bold tracking-[0.16em] uppercase hover:border-brand-wine flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">refresh</span> Atualizar
+            </button>
+            <button onclick="exportAccountsCSV()" class="px-4 py-3 bg-white border border-brand-wine text-brand-wine text-[11px] font-bold tracking-[0.16em] uppercase hover:bg-brand-cream flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">download</span> CSV
+            </button>
+          </div>
+        </div>
+        <div class="bg-white border border-brand-border overflow-x-auto">
+          <table class="admin-table w-full text-sm">
+            <thead><tr><th>Conta</th><th class="w-40">Entrou por</th><th>Criada em</th><th class="text-right">Ações</th></tr></thead>
+            <tbody id="accounts-rows"></tbody>
           </table>
         </div>
       </section>
@@ -455,6 +480,7 @@
   <script src="../assets/js/admin/products.js"></script>
   <script src="../assets/js/admin/newsletter.js"></script>
   <script src="../assets/js/admin/events.js"></script>
+  <script src="../assets/js/admin/accounts.js"></script>
   <script src="../assets/js/admin/main.js"></script>
 </body>
 </html>

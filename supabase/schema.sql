@@ -216,6 +216,83 @@ create policy "events: admin exclui" on public.events
 
 
 -- ---------------------------------------------------------------------
+-- 3c. LOG DE CONTAS
+--     Toda conta criada no Supabase Auth (Google ou GitHub) grava uma
+--     linha aqui automaticamente, pelo gatilho em auth.users.
+-- ---------------------------------------------------------------------
+create table if not exists public.account_logs (
+  id         uuid primary key default gen_random_uuid(),
+  user_id    uuid unique,
+  email      text,
+  full_name  text,
+  provider   text,
+  avatar_url text,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists account_logs_created_idx on public.account_logs (created_at desc);
+
+-- security definer: o gatilho roda no schema auth e precisa gravar em public.
+create or replace function public.log_new_account()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  insert into public.account_logs (user_id, email, full_name, provider, avatar_url)
+  values (
+    new.id,
+    new.email,
+    coalesce(
+      new.raw_user_meta_data ->> 'full_name',
+      new.raw_user_meta_data ->> 'name',
+      new.raw_user_meta_data ->> 'user_name'
+    ),
+    coalesce(new.raw_app_meta_data ->> 'provider', 'email'),
+    new.raw_user_meta_data ->> 'avatar_url'
+  )
+  on conflict (user_id) do nothing;
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_created_log on auth.users;
+create trigger on_auth_user_created_log
+  after insert on auth.users
+  for each row execute function public.log_new_account();
+
+-- Registra quem já tinha conta antes do gatilho existir.
+insert into public.account_logs (user_id, email, full_name, provider, avatar_url, created_at)
+select
+  u.id,
+  u.email,
+  coalesce(
+    u.raw_user_meta_data ->> 'full_name',
+    u.raw_user_meta_data ->> 'name',
+    u.raw_user_meta_data ->> 'user_name'
+  ),
+  coalesce(u.raw_app_meta_data ->> 'provider', 'email'),
+  u.raw_user_meta_data ->> 'avatar_url',
+  u.created_at
+from auth.users u
+on conflict (user_id) do nothing;
+
+alter table public.account_logs enable row level security;
+
+-- Sem policy de insert: só o gatilho (security definer) escreve aqui.
+drop policy if exists "account_logs: admin lê" on public.account_logs;
+create policy "account_logs: admin lê" on public.account_logs
+  for select to authenticated
+  using (public.is_admin());
+
+drop policy if exists "account_logs: admin exclui" on public.account_logs;
+create policy "account_logs: admin exclui" on public.account_logs
+  for delete to authenticated
+  using (public.is_admin());
+
+
+-- ---------------------------------------------------------------------
 -- 4. STORAGE – bucket público "produtos" para as imagens
 -- ---------------------------------------------------------------------
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

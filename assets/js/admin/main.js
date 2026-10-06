@@ -4,11 +4,12 @@
 
 function switchTab(tab) {
   document.querySelectorAll('.admin-tab').forEach((b) => b.classList.toggle('is-active', b.dataset.tab === tab));
-  ['produtos', 'metricas', 'newsletter'].forEach((name) => {
+  ['produtos', 'metricas', 'log', 'newsletter'].forEach((name) => {
     document.getElementById('tab-' + name).classList.toggle('hidden', tab !== name);
   });
   if (tab === 'newsletter') loadNewsletter();
   if (tab === 'metricas') loadEvents();
+  if (tab === 'log') loadAccounts();
 }
 
 function bindEditorEvents() {
