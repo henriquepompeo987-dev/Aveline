@@ -64,34 +64,7 @@
         </button>
       </div>
 
-      <!-- Divider -->
-      <div class="flex items-center gap-3">
-        <div class="flex-1 h-px bg-brand-border"></div>
-        <span class="text-[10px] font-bold tracking-[0.2em] text-brand-dark/40 uppercase">ou</span>
-        <div class="flex-1 h-px bg-brand-border"></div>
-      </div>
-
-      <!-- Email/password form -->
-      <form id="email-auth-form" onsubmit="handleEmailAuth(event)" class="space-y-3 text-left">
-        <div>
-          <label class="admin-label" for="auth-email">E-mail</label>
-          <input id="auth-email" type="email" required class="admin-input" placeholder="seu@email.com"/>
-        </div>
-        <div>
-          <label class="admin-label" for="auth-password">Senha</label>
-          <input id="auth-password" type="password" required minlength="6" class="admin-input" placeholder="Mínimo 6 caracteres"/>
-        </div>
-        <button type="submit" id="btn-email-auth" class="w-full py-3.5 bg-brand-wine text-white text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-colors disabled:opacity-60">
-          Entrar com e-mail
-        </button>
-        <p class="text-center text-xs text-brand-dark/60">
-          <span id="auth-mode-text">Não tem conta?</span>
-          <button type="button" onclick="toggleAuthMode()" class="text-brand-wine font-semibold hover:underline" id="auth-mode-toggle">Criar conta</button>
-        </p>
-      </form>
-
       <p id="login-error" class="hidden text-xs text-red-700 bg-red-50 border border-red-200 p-3 text-left"></p>
-      <p id="login-success" class="hidden text-xs text-green-700 bg-green-50 border border-green-200 p-3 text-left"></p>
       <a href="../" class="inline-flex items-center gap-1 text-[11px] text-brand-dark/60 hover:text-brand-wine">
         <span class="material-symbols-outlined text-[16px]">arrow_back</span> Voltar para a loja
       </a>
@@ -128,6 +101,7 @@
           </div>
           <nav class="flex items-center gap-1 text-[11px] font-semibold tracking-[0.14em] uppercase">
             <button onclick="switchTab('produtos')" data-tab="produtos" class="admin-tab is-active">Produtos</button>
+            <button onclick="switchTab('metricas')" data-tab="metricas" class="admin-tab">Métricas</button>
             <button onclick="switchTab('newsletter')" data-tab="newsletter" class="admin-tab">Newsletter</button>
           </nav>
         </div>
@@ -201,6 +175,47 @@
             <tbody id="product-rows">
               <tr><td colspan="7" class="text-center py-10 text-brand-dark/50">Carregando produtos...</td></tr>
             </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== ABA MÉTRICAS ===== -->
+      <section id="tab-metricas" class="hidden space-y-6">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <span class="text-xs font-semibold tracking-[0.25em] text-brand-gold uppercase">Comportamento</span>
+            <h1 class="font-serif text-3xl text-brand-wine">Sacola e WhatsApp</h1>
+          </div>
+          <div class="flex items-center gap-3">
+            <select id="events-period" onchange="setEventsPeriod(this.value)" class="admin-input w-40">
+              <option value="1">Últimas 24h</option>
+              <option value="7" selected>Últimos 7 dias</option>
+              <option value="30">Últimos 30 dias</option>
+              <option value="0">Todo o período</option>
+            </select>
+            <button onclick="loadEvents()" class="px-4 py-3 bg-white border border-brand-border text-brand-wine text-[11px] font-bold tracking-[0.16em] uppercase hover:border-brand-wine flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">refresh</span> Atualizar
+            </button>
+            <button onclick="exportEventsCSV()" class="px-4 py-3 bg-white border border-brand-wine text-brand-wine text-[11px] font-bold tracking-[0.16em] uppercase hover:bg-brand-cream flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">download</span> CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-4" id="events-stats"></div>
+
+        <div class="bg-white border border-brand-border overflow-x-auto">
+          <table class="admin-table w-full text-sm">
+            <thead>
+              <tr>
+                <th class="w-32">Evento</th>
+                <th>Detalhe</th>
+                <th class="text-right">Valor</th>
+                <th>Quando</th>
+                <th class="text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="events-rows"></tbody>
           </table>
         </div>
       </section>
@@ -439,6 +454,7 @@
   <script src="../assets/js/admin/images.js"></script>
   <script src="../assets/js/admin/products.js"></script>
   <script src="../assets/js/admin/newsletter.js"></script>
+  <script src="../assets/js/admin/events.js"></script>
   <script src="../assets/js/admin/main.js"></script>
 </body>
 </html>

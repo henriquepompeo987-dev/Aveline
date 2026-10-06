@@ -4,9 +4,11 @@
 
 function switchTab(tab) {
   document.querySelectorAll('.admin-tab').forEach((b) => b.classList.toggle('is-active', b.dataset.tab === tab));
-  document.getElementById('tab-produtos').classList.toggle('hidden', tab !== 'produtos');
-  document.getElementById('tab-newsletter').classList.toggle('hidden', tab !== 'newsletter');
+  ['produtos', 'metricas', 'newsletter'].forEach((name) => {
+    document.getElementById('tab-' + name).classList.toggle('hidden', tab !== name);
+  });
   if (tab === 'newsletter') loadNewsletter();
+  if (tab === 'metricas') loadEvents();
 }
 
 function bindEditorEvents() {

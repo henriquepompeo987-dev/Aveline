@@ -48,6 +48,7 @@ function addToCart(id, variant) {
   }
   saveCart();
   renderCart();
+  trackAddToCart(p, key, price);
   showToast(p.name + ' (' + variantLabel(p, key) + ') adicionado à sacola.');
 }
 
@@ -190,5 +191,6 @@ function checkoutViaWhatsApp() {
   if (cep.trim()) lines.push('CEP: ' + cep.trim());
   if (phone.trim()) lines.push('WhatsApp: ' + phone.trim());
 
+  trackCheckout(cart, cartTotal(), name.trim());
   window.open(whatsappLink(lines.join('\n')), '_blank', 'noopener');
 }

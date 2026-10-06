@@ -7,8 +7,6 @@
 
 const auth = { userId: null, ready: false, checking: false };
 
-let isSignUpMode = false;
-
 const VIEWS = ['loading', 'setup', 'login', 'denied', 'app'];
 
 function showView(name) {
@@ -23,17 +21,6 @@ function showLoginError(message) {
   if (!el) return;
   el.textContent = message;
   el.classList.toggle('hidden', !message);
-  const ok = document.getElementById('login-success');
-  if (ok) ok.classList.add('hidden');
-}
-
-function showLoginSuccess(message) {
-  const el = document.getElementById('login-success');
-  if (!el) return;
-  el.textContent = message;
-  el.classList.toggle('hidden', !message);
-  const err = document.getElementById('login-error');
-  if (err) err.classList.add('hidden');
 }
 
 /** Lê erros devolvidos pelo OAuth na URL (?error=... ou #error=...). */
@@ -83,52 +70,6 @@ async function signInWithGoogle() {
   if (error) {
     if (btn) btn.disabled = false;
     showLoginError('Não foi possível iniciar o login com Google: ' + error.message);
-  }
-}
-
-/* ---------- Email/Senha ---------- */
-
-function toggleAuthMode() {
-  isSignUpMode = !isSignUpMode;
-  const btn = document.getElementById('btn-email-auth');
-  const text = document.getElementById('auth-mode-text');
-  const toggle = document.getElementById('auth-mode-toggle');
-  if (btn) btn.textContent = isSignUpMode ? 'Criar conta' : 'Entrar com e-mail';
-  if (text) text.textContent = isSignUpMode ? 'Já tem conta?' : 'Não tem conta?';
-  if (toggle) toggle.textContent = isSignUpMode ? 'Fazer login' : 'Criar conta';
-  showLoginError('');
-  showLoginSuccess('');
-}
-
-async function handleEmailAuth(e) {
-  e.preventDefault();
-  const email = document.getElementById('auth-email').value.trim();
-  const password = document.getElementById('auth-password').value;
-  const btn = document.getElementById('btn-email-auth');
-
-  if (!email || !password) return;
-  if (btn) btn.disabled = true;
-  showLoginError('');
-  showLoginSuccess('');
-
-  if (isSignUpMode) {
-    const { error } = await window.sb.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: location.origin + location.pathname },
-    });
-    if (btn) btn.disabled = false;
-    if (error) {
-      showLoginError('Erro ao criar conta: ' + error.message);
-    } else {
-      showLoginSuccess('Conta criada! Verifique seu e-mail para confirmar o cadastro.');
-    }
-  } else {
-    const { error } = await window.sb.auth.signInWithPassword({ email, password });
-    if (btn) btn.disabled = false;
-    if (error) {
-      showLoginError('Erro ao entrar: ' + error.message);
-    }
   }
 }
 

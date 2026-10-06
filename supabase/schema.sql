@@ -174,6 +174,48 @@ create policy "newsletter: admin exclui" on public.newsletter
 
 
 -- ---------------------------------------------------------------------
+-- 3b. EVENTOS DA LOJA
+--     Registra quando alguém adiciona um item à sacola e quando alguém
+--     é redirecionado ao WhatsApp para fechar o pedido.
+-- ---------------------------------------------------------------------
+create table if not exists public.events (
+  id            uuid primary key default gen_random_uuid(),
+  type          text not null check (type in ('add_to_cart', 'checkout_whatsapp')),
+  product_id    uuid references public.products (id) on delete set null,
+  product_name  text check (product_name is null or length(product_name) <= 200),
+  variant       text check (variant is null or variant in ('full', 'd5', 'd10')),
+  quantity      integer check (quantity is null or (quantity > 0 and quantity <= 999)),
+  value         numeric(10,2) check (value is null or (value >= 0 and value <= 1000000)),
+  items         jsonb check (items is null or length(items::text) <= 8000),
+  customer_name text check (customer_name is null or length(customer_name) <= 120),
+  session_id    text check (session_id is null or length(session_id) <= 64),
+  created_at    timestamptz not null default now()
+);
+
+create index if not exists events_created_idx on public.events (created_at desc);
+create index if not exists events_type_idx    on public.events (type, created_at desc);
+
+alter table public.events enable row level security;
+
+-- Qualquer visitante registra o próprio evento; os checks da tabela
+-- limitam tamanho e formato para evitar lixo gravado.
+drop policy if exists "events: visitante registra" on public.events;
+create policy "events: visitante registra" on public.events
+  for insert to anon, authenticated
+  with check (true);
+
+drop policy if exists "events: admin lê" on public.events;
+create policy "events: admin lê" on public.events
+  for select to authenticated
+  using (public.is_admin());
+
+drop policy if exists "events: admin exclui" on public.events;
+create policy "events: admin exclui" on public.events
+  for delete to authenticated
+  using (public.is_admin());
+
+
+-- ---------------------------------------------------------------------
 -- 4. STORAGE – bucket público "produtos" para as imagens
 -- ---------------------------------------------------------------------
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
