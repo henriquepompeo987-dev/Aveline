@@ -19,6 +19,44 @@ function esc(value) {
     .replace(/'/g, '&#39;');
 }
 
+/* Tags e atributos aceitos no texto formatado da descrição do produto. */
+const RICH_TAGS = ['B', 'STRONG', 'I', 'EM', 'U', 'S', 'STRIKE', 'P', 'BR', 'DIV', 'SPAN',
+  'UL', 'OL', 'LI', 'H1', 'H2', 'H3', 'CODE', 'PRE', 'BLOCKQUOTE', 'A'];
+
+/**
+ * Limpa HTML vindo do editor antes de exibir: mantém só a formatação da
+ * allowlist e descarta scripts, eventos inline e links com esquema estranho.
+ */
+function sanitizeHtml(html) {
+  const doc = new DOMParser().parseFromString('<div>' + String(html == null ? '' : html) + '</div>', 'text/html');
+  const root = doc.body.firstChild;
+
+  root.querySelectorAll('*').forEach((el) => {
+    if (!RICH_TAGS.includes(el.tagName)) {
+      el.replaceWith.apply(el, Array.from(el.childNodes));
+      return;
+    }
+    Array.from(el.attributes).forEach((attr) => {
+      const name = attr.name.toLowerCase();
+      if (name === 'style') {
+        if (/url\s*\(|expression|javascript:|@import/i.test(attr.value)) el.removeAttribute(attr.name);
+        return;
+      }
+      if (el.tagName === 'A' && name === 'href') {
+        if (!/^(https?:|mailto:|tel:|#|\/)/i.test(attr.value.trim())) el.removeAttribute(attr.name);
+        return;
+      }
+      el.removeAttribute(attr.name);
+    });
+    if (el.tagName === 'A') {
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
+
+  return root.innerHTML;
+}
+
 /** Gera slug a partir de um texto ("L'Heure Dorée" -> "lheure-doree"). */
 function slugify(text) {
   return String(text || '')

@@ -14,6 +14,7 @@ function switchTab(tab) {
 
 function bindEditorEvents() {
   const form = document.getElementById('product-form');
+  initRichText('f-description');
   form.addEventListener('input', () => { state.dirty = true; });
   form.addEventListener('change', () => { state.dirty = true; });
 

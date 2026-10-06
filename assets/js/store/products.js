@@ -275,7 +275,11 @@ function renderProductModal() {
           '<h3 id="pm-name" class="font-serif text-3xl sm:text-4xl text-brand-wine mt-1">' + esc(p.name) + '</h3>' +
           '<p class="text-xs text-brand-dark/60 mt-1">' + esc(productSpec(p)) + ' • ' + esc(CATEGORY_LABELS[p.category] || '') + '</p>' +
         '</div>' +
-        (p.description || p.short_description ? '<p class="text-sm text-brand-dark/80 leading-relaxed">' + esc(p.description || p.short_description) + '</p>' : '') +
+        (p.description
+          ? '<div class="rich-text text-sm text-brand-dark/80 leading-relaxed">' + sanitizeHtml(p.description) + '</div>'
+          : p.short_description
+            ? '<p class="text-sm text-brand-dark/80 leading-relaxed">' + esc(p.short_description) + '</p>'
+            : '') +
         '<div class="bg-white border border-brand-border px-5 py-2">' +
           '<span class="block pt-2 text-[10px] font-bold tracking-[0.25em] uppercase text-brand-gold">Pirâmide Olfativa</span>' +
           pyramidRow('air', 'Notas de Saída', p.notes_top) +

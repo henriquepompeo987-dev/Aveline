@@ -227,6 +227,7 @@ function openEditor(id) {
   setField('notes_top', (v.notes_top || []).join(', '));
   setField('notes_heart', (v.notes_heart || []).join(', '));
   setField('notes_base', (v.notes_base || []).join(', '));
+  setRichText('f-description', v.description);
   renderFamilies(v.families || []);
 
   state.editingId = p ? p.id : null;
@@ -407,6 +408,7 @@ async function saveProduct(event) {
   if (state.uploading) return showToast('Aguarde o envio das imagens terminar.', 'error');
 
   const form = document.getElementById('product-form');
+  syncRichText('f-description');
   const fd = new FormData(form);
   const el = form.elements;
   const name = String(fd.get('name') || '').trim();
