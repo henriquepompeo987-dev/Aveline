@@ -333,9 +333,15 @@ create policy "produtos: admin exclui" on storage.objects
 
 -- ---------------------------------------------------------------------
 -- 5. CADASTRE O ADMINISTRADOR
---    >>> Troque pelo e-mail principal da conta GitHub "aveline" <<<
---    (é o e-mail que aparece em Authentication > Users após o 1º login)
+--
+--    Este arquivo é servido publicamente junto com o site, então o
+--    e-mail real do admin NÃO fica aqui: ele diria a qualquer visitante
+--    qual conta tem poder de escrita na loja.
+--
+--    Rode a linha abaixo à parte, no SQL Editor do Supabase, trocando
+--    pelo e-mail que aparece em Authentication > Users após o 1º login:
+--
+--      insert into public.admins (email)
+--      values ('seu-email@exemplo.com')
+--      on conflict (email) do nothing;
 -- ---------------------------------------------------------------------
-insert into public.admins (email)
-values ('henriquepompeo987@gmail.com')
-on conflict (email) do nothing;

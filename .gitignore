@@ -3,3 +3,12 @@ Thumbs.db
 node_modules/
 .vscode/
 *.log
+
+# Credenciais. Tudo neste repositório é servido publicamente pelo
+# GitHub Pages, então um segredo commitado vai direto para o ar.
+.env
+.env.*
+*.pem
+*.key
+secrets.json
+.supabase/
