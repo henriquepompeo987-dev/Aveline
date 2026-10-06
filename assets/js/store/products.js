@@ -87,15 +87,15 @@ function productCardHtml(p) {
       formatBRL(Math.min(...[p.decant_5ml_price, p.decant_10ml_price].filter(Boolean).map(Number))) + '</span>'
     : '';
   const buyBtn = p.in_stock
-    ? '<button onclick="addToCart(\'' + p.id + '\')" class="flex-1 py-3 bg-brand-wine text-white text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-colors">Adicionar à sacola</button>'
-    : '<a href="' + esc(whatsappLink('Olá! Gostaria de encomendar o ' + p.name + ' (' + p.house + ').')) + '" target="_blank" rel="noopener" class="flex-1 py-3 text-center bg-brand-dark text-white text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-wine transition-colors">Encomendar</a>';
+    ? '<button onclick="addToCart(\'' + p.id + '\')" class="card-action flex-1 py-3 bg-brand-wine text-white text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-colors">Adicionar à sacola</button>'
+    : '<a href="' + esc(whatsappLink('Olá! Gostaria de encomendar o ' + p.name + ' (' + p.house + ').')) + '" target="_blank" rel="noopener" class="card-action flex-1 py-3 text-center bg-brand-dark text-white text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-wine transition-colors">Encomendar</a>';
 
   return (
     '<article class="group bg-brand-surface border border-brand-border flex flex-col hover:shadow-xl hover:border-brand-gold transition-all duration-300">' +
       '<div class="product-media aspect-[4/5] cursor-pointer" onclick="openProduct(\'' + p.id + '\')">' +
         productImageHtml(p) +
         badge +
-        '<button onclick="event.stopPropagation(); toggleWishlist(\'' + p.id + '\')" data-wish="' + p.id + '" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 border border-brand-border flex items-center justify-center text-brand-wine hover:scale-110 transition-transform" aria-label="Favoritar">' +
+        '<button onclick="event.stopPropagation(); toggleWishlist(\'' + p.id + '\')" data-wish="' + p.id + '" class="card-wish absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 border border-brand-border flex items-center justify-center text-brand-wine hover:scale-110 transition-transform" aria-label="Favoritar">' +
           '<span class="material-symbols-outlined text-[18px] ' + (liked ? 'is-filled' : '') + '">favorite</span>' +
         '</button>' +
       '</div>' +
@@ -106,13 +106,13 @@ function productCardHtml(p) {
         (p.short_description ? '<p class="text-sm text-brand-dark/75 leading-relaxed line-clamp-2">' + esc(p.short_description) + '</p>' : '') +
         '<div class="flex flex-wrap gap-1.5 pt-1">' + families + '</div>' +
         '<div class="mt-auto pt-4 border-t border-brand-border/60 space-y-3">' +
-          '<div class="flex items-end justify-between gap-2">' +
+          '<div class="flex flex-wrap items-end justify-between gap-x-2 gap-y-1">' +
             '<div>' + compare + '<span class="font-serif text-2xl font-bold text-brand-wine">' + formatBRL(p.price) + '</span></div>' +
             decantInfo +
           '</div>' +
           '<div class="flex gap-2">' +
             buyBtn +
-            '<button onclick="openProduct(\'' + p.id + '\')" class="px-4 py-3 bg-brand-cream text-brand-wine text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-gold/30 transition-colors">Pirâmide</button>' +
+            '<button onclick="openProduct(\'' + p.id + '\')" class="card-action px-4 py-3 bg-brand-cream text-brand-wine text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-gold/30 transition-colors">Pirâmide</button>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -175,7 +175,7 @@ function renderDecants() {
         '</div>' +
         '<div class="pt-4 mt-4 border-t border-brand-border/60 flex items-center justify-between">' +
           '<span class="font-serif text-lg font-bold text-brand-wine">' + formatBRL(price) + '</span>' +
-          '<button onclick="addToCart(\'' + p.id + '\', \'' + key + '\')" class="p-2 bg-brand-wine text-white hover:bg-brand-dark transition-colors rounded-sm" title="Adicionar decante" aria-label="Adicionar decante">' +
+          '<button onclick="addToCart(\'' + p.id + '\', \'' + key + '\')" class="tap-target bg-brand-wine text-white hover:bg-brand-dark transition-colors rounded-sm" title="Adicionar decante" aria-label="Adicionar decante">' +
             '<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>' +
           '</button>' +
         '</div>' +

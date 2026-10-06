@@ -164,8 +164,48 @@ body.is-locked { overflow: hidden; }
 }
 @keyframes shimmer { to { background-position: -200% 0; } }
 
+/* ---------- Alvos de toque (44px, recomendação Apple/Google) ---------- */
+.tap-target {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px;
+}
+
+/* clip (e não hidden) porque hidden criaria contexto de rolagem e
+   quebraria o position:sticky do cabeçalho. */
+body { overflow-x: clip; }
+* { -webkit-tap-highlight-color: transparent; }
+
 /* ---------- Mobile: ajustes gerais ---------- */
 @media (max-width: 639px) {
+  /* Campos com menos de 16px fazem o iOS dar zoom sozinho ao focar. */
+  input, select, textarea { font-size: 16px !important; }
+  .order-field::placeholder, #newsletter-email::placeholder { font-size: 14px; }
+
+  /* Menu mobile: cada link vira uma faixa tocável */
+  #mobile-menu-nav a,
+  #mobile-menu-nav button {
+    display: flex; align-items: center;
+    min-height: 48px;
+    padding: 0 .5rem;
+    border-bottom: 1px solid rgba(232, 222, 209, .7);
+  }
+  #mobile-menu-nav > *:last-child { border-bottom: none; }
+
+  /* Filtros e tags: altura tocável sem ficarem enormes */
+  .cat-pill { padding: .6rem 1rem; min-height: 40px; display: inline-flex; align-items: center; }
+  .tag-btn { padding: .55rem .85rem; font-size: .7rem; min-height: 40px; }
+
+  /* Opções de tamanho no detalhe do produto */
+  .variant-option { min-height: 48px; }
+
+  /* Links do rodapé: espaçados o bastante para não errar o toque */
+  footer li a, footer a { display: inline-flex; align-items: center; min-height: 36px; }
+  footer ul.space-y-2 > li + li { margin-top: .25rem; }
+
+  /* Botões dos cards de produto */
+  .card-action { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .card-wish { width: 44px; height: 44px; }
+
   /* Hero: título menor, botões empilhados */
   #inicio h1 { font-size: 2rem; line-height: 1.15; }
   #inicio .grid.grid-cols-3 { grid-template-columns: repeat(3, 1fr); gap: .75rem; }
@@ -185,9 +225,6 @@ body.is-locked { overflow: hidden; }
   #catalog-filters { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
   #catalog-filters::-webkit-scrollbar { display: none; }
   #catalog-filters .cat-pill { flex-shrink: 0; }
-
-  /* Bússola: tags menores */
-  .tag-btn { padding: .35rem .65rem; font-size: .65rem; }
 
   /* Quiz result: empilhado */
   #quiz-result { flex-direction: column; text-align: center; padding: 1rem; }
@@ -221,12 +258,11 @@ body.is-locked { overflow: hidden; }
   /* Modal do produto: imagem menor para caber info */
   #product-modal-content .product-media { aspect-ratio: 1/1 !important; max-height: 55vw; }
 
-  /* Newsletter: input empilhado */
-  #newsletter form { flex-direction: column; }
-  #newsletter input[type="email"] { width: 100%; }
-
-  /* Sacola: campo nome e inputs menores */
+  /* Sacola: CEP e telefone um abaixo do outro */
   #cart-footer .grid-cols-2 { grid-template-columns: 1fr; }
+
+  /* Barra de aviso: sem espaçamento exagerado entre letras */
+  #announcement-bar { letter-spacing: .12em; }
 }
 
 /* ---------- Tablet: ajuste intermediário ---------- */
@@ -236,17 +272,48 @@ body.is-locked { overflow: hidden; }
   .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 > * { height: auto; min-height: 240px; }
 }
 
-/* ---------- Touch: hover desativado ---------- */
+/* ---------- Touch: hover desativado e alvos maiores ---------- */
 @media (hover: none) {
   .group:hover .product-media img { transform: none; }
+  .product-media img { transition: none; }
+}
+
+/* Vale para tablets em modo toque, não só para telas estreitas. */
+@media (pointer: coarse) {
+  .cat-pill, .tag-btn, .variant-option { min-height: 44px; }
+  .card-action { min-height: 44px; }
+  .thumb-btn { min-width: 48px; min-height: 48px; }
+}
+
+/* ---------- Drawers e modais: altura real no iOS ---------- */
+/* 100vh no Safari móvel inclui a barra de endereço e corta o conteúdo. */
+@supports (height: 100dvh) {
+  .drawer { height: 100dvh; }
+  .modal { height: 100dvh; }
+  .modal-panel { max-height: calc(100dvh - 2rem); }
+}
+
+/* Rolagem suave dentro dos drawers no iOS */
+.drawer, .modal-panel, #cart-items-list, #wishlist-items {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 /* ---------- Safe area (iPhone com notch) ---------- */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   footer { padding-bottom: calc(3rem + env(safe-area-inset-bottom)); }
-  #cart-drawer .p-6:last-child,
+  #cart-footer,
+  #mobile-menu-nav,
   .drawer nav { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
   a[data-link="whatsapp-hello"] { bottom: calc(1rem + env(safe-area-inset-bottom)); }
+}
+
+/* Notch em paisagem: só no mobile, para não mexer no padding do desktop. */
+@media (max-width: 639px) and (orientation: landscape) {
+  header > div, #announcement-bar, main > div > section {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
 }
 
 /* ---------- Acessibilidade ---------- */

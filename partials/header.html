@@ -3,7 +3,7 @@
   <div class="max-w-[1380px] mx-auto px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
 
     <!-- Menu mobile -->
-    <button onclick="toggleMobileMenu(true)" class="lg:hidden p-2 -ml-2 text-brand-dark/80 hover:text-brand-wine" aria-label="Abrir menu">
+    <button onclick="toggleMobileMenu(true)" class="tap-target lg:hidden -ml-2 text-brand-dark/80 hover:text-brand-wine" aria-label="Abrir menu">
       <span class="material-symbols-outlined text-[24px]">menu</span>
     </button>
 
@@ -38,18 +38,18 @@
     </nav>
 
     <!-- Ícones -->
-    <div class="flex items-center gap-1 sm:gap-3">
-      <button onclick="toggleSearch(true)" class="p-2 text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50" title="Pesquisar" aria-label="Pesquisar">
+    <div class="flex items-center gap-0.5 sm:gap-2">
+      <button onclick="toggleSearch(true)" class="tap-target text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50" title="Pesquisar" aria-label="Pesquisar">
         <span class="material-symbols-outlined text-[22px]">search</span>
       </button>
-      <button onclick="openAccountModal()" class="hidden sm:inline-flex p-2 text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50" title="Minha Conta" aria-label="Minha conta">
+      <button onclick="openAccountModal()" class="tap-target hidden sm:inline-flex text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50" title="Minha Conta" aria-label="Minha conta">
         <span class="material-symbols-outlined text-[22px]">person</span>
       </button>
-      <button onclick="toggleWishlistDrawer(true)" class="p-2 text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50 relative" title="Favoritos" aria-label="Favoritos">
+      <button onclick="toggleWishlistDrawer(true)" class="tap-target text-brand-dark/80 hover:text-brand-wine transition-colors rounded-full hover:bg-brand-cream/50 relative" title="Favoritos" aria-label="Favoritos">
         <span class="material-symbols-outlined text-[22px]">favorite</span>
-        <span id="wishlist-badge" class="hidden absolute top-1 right-1 bg-brand-wine text-white text-[9px] w-3.5 h-3.5 rounded-full items-center justify-center font-bold">0</span>
+        <span id="wishlist-badge" class="hidden absolute top-0.5 right-0.5 bg-brand-wine text-white text-[10px] w-4 h-4 rounded-full items-center justify-center font-bold">0</span>
       </button>
-      <button onclick="toggleCart(true)" class="p-2 text-brand-wine bg-brand-cream/60 hover:bg-brand-cream transition-colors rounded-full relative flex items-center gap-1.5 px-3" title="Sacola" aria-label="Sacola">
+      <button onclick="toggleCart(true)" class="tap-target text-brand-wine bg-brand-cream/60 hover:bg-brand-cream transition-colors rounded-full relative flex items-center gap-1.5 px-3" title="Sacola" aria-label="Sacola">
         <span class="material-symbols-outlined text-[20px]">local_mall</span>
         <span id="cart-counter" class="text-xs font-bold text-brand-wine">0</span>
       </button>
