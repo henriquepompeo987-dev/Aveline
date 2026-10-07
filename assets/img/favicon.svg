@@ -1,9 +1,11 @@
-<!-- Favicon AVELINE - versao simplificada do simbolo (sem nervuras nem anel
-     interno, que viram borrao abaixo de 32px). -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#541623" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="50" cy="50" r="47" fill="#FFFBF7" stroke="#541623" stroke-width="5"/>
-  <path d="M50 20 C57.5 30, 60 40.5, 57 49.5 C53.5 54, 46.5 54, 43 49.5 C40 40.5, 42.5 30, 50 20 Z"/>
-  <path d="M50 49.5 C50 60, 50 70, 47.5 80"/>
-  <path d="M49.5 64 C40.5 60.5, 32 56, 26.5 48 C34.5 45.5, 44 52.5, 49.5 64 Z"/>
-  <path d="M50 59 C59 56, 67.5 51.5, 73 43 C65 40.5, 55.5 47.5, 50 59 Z"/>
+<!-- Favicon AVELINE - ramo dourado sobre vinho. Versao sem nervuras nem
+     sepalas: abaixo de 32px esses tracos viram borrao cinza. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 100" fill="none">
+  <rect width="60" height="100" rx="14" fill="#541623"/>
+  <g fill="none" stroke="#CBB68E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 14 C36 21, 40 30, 38 38 C36 42, 24 42, 22 38 C20 30, 24 21, 30 14 Z"/>
+    <path d="M30 42 C30 53, 31 64, 31 74 C31 82, 30 86, 28 90"/>
+    <path d="M31 62 C24 60, 15 54, 9 45 C16 43, 26 51, 31 62 Z"/>
+    <path d="M31 71 C38 69, 46 63, 52 53 C45 51, 36 61, 31 71 Z"/>
+  </g>
 </svg>
