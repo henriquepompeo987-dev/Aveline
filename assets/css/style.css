@@ -342,3 +342,11 @@ body { overflow-x: clip; }
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: .78rem; white-space: pre-wrap;
 }
+
+/* Banners: o texto fica sobre imagem escura, então herda a cor clara */
+.banner-copy h2, .banner-copy h3, .banner-copy a { color: inherit; }
+.banner-title p { margin: 0; }
+.banner-title h2, .banner-title h3 { font-size: inherit; margin: 0; }
+.banner-title ul, .banner-title ol { padding-left: 1.4rem; }
+.banner-title ul { list-style: disc; }
+.banner-title ol { list-style: decimal; }

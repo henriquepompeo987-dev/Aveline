@@ -293,6 +293,59 @@ create policy "account_logs: admin exclui" on public.account_logs
 
 
 -- ---------------------------------------------------------------------
+-- 3d. BANNERS
+--     Faixas horizontais criadas no painel. "position" diz em qual ponto
+--     da página o banner aparece (os slots estão no index.html).
+-- ---------------------------------------------------------------------
+create table if not exists public.banners (
+  id          uuid primary key default gen_random_uuid(),
+  title       text,                                   -- HTML do editor
+  description text,                                   -- HTML do editor
+  image_url   text,
+  position    text not null default 'apos-hero'
+              check (position in ('topo', 'apos-hero', 'apos-quiz', 'apos-catalogo',
+                                  'apos-decantes', 'apos-sobre', 'apos-depoimentos',
+                                  'antes-rodape')),
+  active      boolean not null default true,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+
+drop trigger if exists banners_set_updated_at on public.banners;
+create trigger banners_set_updated_at
+  before update on public.banners
+  for each row execute function public.set_updated_at();
+
+alter table public.banners enable row level security;
+
+drop policy if exists "banners: público lê ativos" on public.banners;
+create policy "banners: público lê ativos" on public.banners
+  for select to anon
+  using (active = true);
+
+drop policy if exists "banners: logado lê" on public.banners;
+create policy "banners: logado lê" on public.banners
+  for select to authenticated
+  using (active = true or public.is_admin());
+
+drop policy if exists "banners: admin insere" on public.banners;
+create policy "banners: admin insere" on public.banners
+  for insert to authenticated
+  with check (public.is_admin());
+
+drop policy if exists "banners: admin edita" on public.banners;
+create policy "banners: admin edita" on public.banners
+  for update to authenticated
+  using (public.is_admin())
+  with check (public.is_admin());
+
+drop policy if exists "banners: admin exclui" on public.banners;
+create policy "banners: admin exclui" on public.banners
+  for delete to authenticated
+  using (public.is_admin());
+
+
+-- ---------------------------------------------------------------------
 -- 4. STORAGE – bucket público "produtos" para as imagens
 -- ---------------------------------------------------------------------
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

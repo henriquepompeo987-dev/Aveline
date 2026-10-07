@@ -101,6 +101,7 @@
           </div>
           <nav class="flex items-center gap-1 text-[11px] font-semibold tracking-[0.14em] uppercase">
             <button onclick="switchTab('produtos')" data-tab="produtos" class="admin-tab is-active">Produtos</button>
+            <button onclick="switchTab('banners')" data-tab="banners" class="admin-tab">Banners</button>
             <button onclick="switchTab('metricas')" data-tab="metricas" class="admin-tab">Métricas</button>
             <button onclick="switchTab('log')" data-tab="log" class="admin-tab">Log</button>
             <button onclick="switchTab('newsletter')" data-tab="newsletter" class="admin-tab">Newsletter</button>
@@ -175,6 +176,35 @@
             </thead>
             <tbody id="product-rows">
               <tr><td colspan="7" class="text-center py-10 text-brand-dark/50">Carregando produtos...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== ABA BANNERS ===== -->
+      <section id="tab-banners" class="hidden space-y-6">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <span class="text-xs font-semibold tracking-[0.25em] text-brand-gold uppercase">Vitrine</span>
+            <h1 class="font-serif text-3xl text-brand-wine">Banners</h1>
+          </div>
+          <button onclick="openBannerEditor()" class="px-5 py-3 bg-brand-wine text-white text-[11px] font-bold tracking-[0.16em] uppercase hover:bg-brand-dark flex items-center gap-2 shadow-md">
+            <span class="material-symbols-outlined text-[18px]">add</span> Novo banner
+          </button>
+        </div>
+        <div class="bg-white border border-brand-border overflow-x-auto">
+          <table class="admin-table w-full text-sm">
+            <thead>
+              <tr>
+                <th class="w-48">Imagem</th>
+                <th>Título</th>
+                <th>Posição</th>
+                <th>Status</th>
+                <th class="text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="banner-rows">
+              <tr><td colspan="5" class="text-center py-10 text-brand-dark/50">Carregando banners...</td></tr>
             </tbody>
           </table>
         </div>
@@ -469,6 +499,78 @@
     </div>
   </aside>
 
+  <!-- ================= EDITOR DE BANNER (painel lateral) ================= -->
+  <div id="banner-editor-backdrop" class="backdrop" onclick="closeBannerEditor()"></div>
+  <aside id="banner-editor" class="drawer drawer-right fixed inset-y-0 right-0 z-50 w-full max-w-3xl bg-brand-surface shadow-2xl flex flex-col border-l border-brand-gold/30" aria-label="Editor de banner">
+    <div class="px-6 py-4 bg-white border-b border-brand-border flex items-center justify-between">
+      <div>
+        <span class="text-[10px] font-bold tracking-[0.25em] text-brand-gold uppercase" id="banner-editor-kicker">Novo banner</span>
+        <h2 class="font-serif text-2xl text-brand-wine leading-tight">Banner da loja</h2>
+      </div>
+      <button onclick="closeBannerEditor()" class="text-brand-dark/60 hover:text-brand-wine" aria-label="Fechar editor">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <form id="banner-form" onsubmit="saveBanner(event)" class="flex-1 overflow-y-auto p-6 space-y-8" novalidate>
+
+      <fieldset class="space-y-4">
+        <legend class="admin-legend">Imagem</legend>
+        <label id="banner-dropzone" class="dropzone aspect-[4/1] min-h-[120px]">
+          <input type="file" id="banner-image-input" accept="image/*" class="sr-only" onchange="handleBannerImage(this.files)"/>
+          <div id="banner-image-preview" class="absolute inset-0"></div>
+          <div class="dropzone-hint">
+            <span class="material-symbols-outlined text-[32px]">add_photo_alternate</span>
+            <span>Clique ou arraste · JPG, PNG ou WebP<br/>Ideal: imagem larga, ~1600 × 400 px</span>
+          </div>
+          <div class="dropzone-loading hidden"><div class="spinner"></div></div>
+        </label>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" onclick="document.getElementById('banner-image-input').click()" class="admin-btn-sm">Trocar</button>
+          <button type="button" onclick="removeBannerImage()" class="admin-btn-sm">Remover</button>
+          <input id="banner-image-url" type="url" placeholder="Ou cole a URL de uma imagem" class="admin-input flex-1 min-w-[200px]"/>
+          <button type="button" onclick="useBannerImageUrl()" class="admin-btn-sm">Usar</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="space-y-4">
+        <legend class="admin-legend">Texto</legend>
+        <div>
+          <span class="admin-label">Título</span>
+          <textarea id="b-title" name="title" rows="2" class="admin-input" placeholder="Ex.: Coleção de Inverno"></textarea>
+        </div>
+        <div>
+          <span class="admin-label">Descrição</span>
+          <textarea id="b-description" name="description" rows="4" class="admin-input" placeholder="Um texto curto que acompanha o banner..."></textarea>
+          <p class="text-[11px] text-brand-dark/55 mt-1">O texto aparece sobre a imagem. Texto colado entra sem formatação.</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="space-y-4">
+        <legend class="admin-legend">Exibição</legend>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="admin-label" for="b-position">Onde aparece no site</label>
+            <select id="b-position" name="position" class="admin-input"></select>
+          </div>
+          <label class="switch-row"><input type="checkbox" name="active" class="switch"/> <span><b>Visível na loja</b><small>Desmarque para ocultar sem excluir</small></span></label>
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="px-6 py-4 bg-white border-t border-brand-border flex items-center justify-between gap-3">
+      <button type="button" id="btn-delete-banner" onclick="deleteBanner(bannerState.editingId)" class="hidden text-xs text-red-700 hover:underline flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">delete</span> Excluir banner
+      </button>
+      <div class="flex gap-3 ml-auto">
+        <button type="button" onclick="closeBannerEditor()" class="px-5 py-3 border border-brand-border text-xs font-bold tracking-[0.14em] uppercase hover:border-brand-wine">Cancelar</button>
+        <button type="submit" form="banner-form" id="btn-save-banner" class="px-6 py-3 bg-brand-wine text-white text-xs font-bold tracking-[0.14em] uppercase hover:bg-brand-dark disabled:opacity-60 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">save</span> Salvar
+        </button>
+      </div>
+    </div>
+  </aside>
+
   <div id="toast" role="status" aria-live="polite"></div>
 
   <!-- Scripts -->
@@ -480,6 +582,7 @@
   <script src="../assets/js/admin/images.js"></script>
   <script src="../assets/js/admin/richtext.js"></script>
   <script src="../assets/js/admin/products.js"></script>
+  <script src="../assets/js/admin/banners.js"></script>
   <script src="../assets/js/admin/newsletter.js"></script>
   <script src="../assets/js/admin/events.js"></script>
   <script src="../assets/js/admin/accounts.js"></script>

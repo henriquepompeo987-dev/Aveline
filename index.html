@@ -27,14 +27,23 @@
   <div data-include="partials/announcement.html"></div>
   <div data-include="partials/header.html"></div>
 
+  <!-- data-banner-slot: pontos onde os banners do painel podem aparecer -->
   <main>
+    <div data-banner-slot="topo"></div>
     <div data-include="partials/hero.html"></div>
+    <div data-banner-slot="apos-hero"></div>
     <div data-include="partials/quiz.html"></div>
+    <div data-banner-slot="apos-quiz"></div>
     <div data-include="partials/catalog.html"></div>
+    <div data-banner-slot="apos-catalogo"></div>
     <div data-include="partials/decants.html"></div>
+    <div data-banner-slot="apos-decantes"></div>
     <div data-include="partials/about.html"></div>
+    <div data-banner-slot="apos-sobre"></div>
     <div data-include="partials/testimonials.html"></div>
+    <div data-banner-slot="apos-depoimentos"></div>
     <div data-include="partials/newsletter.html"></div>
+    <div data-banner-slot="antes-rodape"></div>
   </main>
 
   <div data-include="partials/footer.html"></div>
@@ -56,6 +65,7 @@
   <script src="assets/js/store/wishlist.js"></script>
   <script src="assets/js/store/quiz.js"></script>
   <script src="assets/js/store/ui.js"></script>
+  <script src="assets/js/store/banners.js"></script>
   <script src="assets/js/store/main.js"></script>
 
   <!-- Carrega as partes por último (dispara "partials:loaded") -->

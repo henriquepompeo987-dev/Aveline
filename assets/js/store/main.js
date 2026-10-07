@@ -12,6 +12,7 @@ async function initStore() {
   watchActiveSection();
   renderQuizTags();
   renderCart();
+  renderStoreBanners();
 
   await loadProducts();
 
