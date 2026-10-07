@@ -91,7 +91,7 @@ function productCardHtml(p) {
     : '<a href="' + esc(whatsappLink('Olá! Gostaria de encomendar o ' + p.name + ' (' + p.house + ').')) + '" target="_blank" rel="noopener" class="card-action flex-1 py-3 text-center bg-brand-dark text-white text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-wine transition-colors">Encomendar</a>';
 
   return (
-    '<article class="group bg-brand-surface border border-brand-border flex flex-col hover:shadow-xl hover:border-brand-gold transition-all duration-300">' +
+    '<article class="group bg-brand-surface border border-brand-border flex flex-col hover:shadow-xl hover:border-brand-gold transition-all duration-300' + (!p.in_stock ? ' opacity-75' : '') + '">' +
       '<div class="product-media aspect-[4/5] cursor-pointer" onclick="openProduct(\'' + p.id + '\')">' +
         productImageHtml(p) +
         badge +
@@ -106,10 +106,15 @@ function productCardHtml(p) {
         (p.short_description ? '<p class="text-sm text-brand-dark/75 leading-relaxed line-clamp-2">' + esc(p.short_description) + '</p>' : '') +
         '<div class="flex flex-wrap gap-1.5 pt-1">' + families + '</div>' +
         '<div class="mt-auto pt-4 border-t border-brand-border/60 space-y-3">' +
-          '<div class="flex flex-wrap items-end justify-between gap-x-2 gap-y-1">' +
-            '<div>' + compare + '<span class="font-serif text-2xl font-bold text-brand-wine">' + formatBRL(p.price) + '</span></div>' +
-            decantInfo +
-          '</div>' +
+          (p.in_stock
+            ? '<div class="flex flex-wrap items-end justify-between gap-x-2 gap-y-1">' +
+                '<div>' + compare + '<span class="font-serif text-2xl font-bold text-brand-wine">' + formatBRL(p.price) + '</span></div>' +
+                decantInfo +
+              '</div>'
+            : '<div class="flex items-center gap-2">' +
+                '<span class="font-serif text-2xl font-bold text-brand-dark/40 line-through">' + (p.price > 0 ? formatBRL(p.price) : '') + '</span>' +
+                '<span class="text-[10px] font-bold tracking-[0.16em] uppercase text-red-700/80">Esgotado</span>' +
+              '</div>') +
           '<div class="flex gap-2">' +
             '<button onclick="openProduct(\'' + p.id + '\')" class="card-action flex-1 py-3 bg-brand-cream text-brand-wine text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-gold/30 transition-colors">Pirâmide</button>' +
           '</div>' +
