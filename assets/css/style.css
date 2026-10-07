@@ -37,6 +37,22 @@ body { background: var(--linen); }
 .nav-link:hover { color: var(--wine); }
 .nav-link.is-active { color: var(--wine); border-color: var(--gold); }
 
+.nav-pill {
+  padding: .35rem .85rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--dark);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.nav-pill:hover { border-color: var(--wine); color: var(--wine); }
+.nav-pill.is-active { background: var(--wine); border-color: var(--wine); color: #fff; }
+
 /* ---------- Filtros do catálogo ---------- */
 .cat-pill {
   padding: .4rem 1rem;

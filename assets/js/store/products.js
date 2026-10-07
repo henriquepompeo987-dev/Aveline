@@ -111,8 +111,7 @@ function productCardHtml(p) {
             decantInfo +
           '</div>' +
           '<div class="flex gap-2">' +
-            buyBtn +
-            '<button onclick="openProduct(\'' + p.id + '\')" class="card-action px-4 py-3 bg-brand-cream text-brand-wine text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-gold/30 transition-colors">Pirâmide</button>' +
+            '<button onclick="openProduct(\'' + p.id + '\')" class="card-action flex-1 py-3 bg-brand-cream text-brand-wine text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-gold/30 transition-colors">Pirâmide</button>' +
           '</div>' +
         '</div>' +
       '</div>' +
