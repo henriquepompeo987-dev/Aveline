@@ -17,6 +17,9 @@
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 body { background: var(--linen); }
 
+/* Navegadores nao aplicam a fonte da pagina em controles de formulario. */
+input, select, textarea, button { font-family: inherit; }
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--linen); }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
