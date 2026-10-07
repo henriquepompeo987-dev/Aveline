@@ -10,7 +10,6 @@ Avile/
 │   ├── announcement.html       # Barra de aviso
 │   ├── header.html             # Cabeçalho / menu
 │   ├── hero.html               # Destaque principal
-│   ├── categories.html         # Categorias
 │   ├── quiz.html               # Bússola olfativa
 │   ├── catalog.html            # Curadoria (grade de produtos)
 │   ├── decants.html            # Decantes

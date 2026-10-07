@@ -215,12 +215,6 @@ body { overflow-x: clip; }
   #hero-feature { padding: .75rem 1rem; gap: .5rem; flex-direction: column; align-items: flex-start; }
   #hero-feature button { width: 100%; text-align: center; }
 
-  /* Categorias: cards menores, 2 por linha */
-  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
-  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 > * { height: auto; min-height: 200px; padding: 1rem; }
-  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 h3 { font-size: 1.15rem; }
-  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 p { display: none; }
-
   /* Catálogo: filtros rolam na horizontal */
   #catalog-filters { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
   #catalog-filters::-webkit-scrollbar { display: none; }
@@ -263,13 +257,6 @@ body { overflow-x: clip; }
 
   /* Barra de aviso: sem espaçamento exagerado entre letras */
   #announcement-bar { letter-spacing: .12em; }
-}
-
-/* ---------- Tablet: ajuste intermediário ---------- */
-@media (min-width: 640px) and (max-width: 1023px) {
-  /* Categorias: 3 colunas no tablet */
-  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 { grid-template-columns: repeat(3, 1fr); }
-  .max-w-\[1380px\] .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5 > * { height: auto; min-height: 240px; }
 }
 
 /* ---------- Touch: hover desativado e alvos maiores ---------- */
