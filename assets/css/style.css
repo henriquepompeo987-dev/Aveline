@@ -85,7 +85,7 @@ body { background: var(--linen); }
 
 /* ---------- Cards de produto ---------- */
 .product-media { position: relative; overflow: hidden; background: rgba(242, 233, 212, .35); }
-.product-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+.product-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
 .group:hover .product-media img { transform: scale(1.05); }
 .product-placeholder {
   position: absolute; inset: 0;
