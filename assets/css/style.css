@@ -208,8 +208,6 @@ body { overflow-x: clip; }
 
   /* Hero: título menor, botões empilhados */
   #inicio h1 { font-size: 2rem; line-height: 1.15; }
-  #inicio .grid.grid-cols-3 { grid-template-columns: repeat(3, 1fr); gap: .75rem; }
-  #inicio .grid.grid-cols-3 .font-serif { font-size: 1.25rem; }
 
   /* Hero card destaque: compacto */
   #hero-feature { padding: .75rem 1rem; gap: .5rem; flex-direction: column; align-items: flex-start; }
