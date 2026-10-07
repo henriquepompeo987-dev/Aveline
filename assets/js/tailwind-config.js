@@ -15,7 +15,7 @@ tailwind.config = {
         },
       },
       fontFamily: {
-        serif: ['Playfair Display', 'serif'],
+        serif: ['Segoe UI', 'Playfair Display', 'serif'],
         sans: ['Plus Jakarta Sans', 'sans-serif'],
       },
     },

@@ -326,8 +326,8 @@ body { overflow-x: clip; }
 /* Descrição formatada do produto (vinda do editor do admin) */
 .rich-text p { margin: 0 0 .7rem; }
 .rich-text p:last-child { margin-bottom: 0; }
-.rich-text h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--wine); margin: .6rem 0 .5rem; }
-.rich-text h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wine); margin: .6rem 0 .4rem; }
+.rich-text h2 { font-family: 'Segoe UI', 'Playfair Display', serif; font-size: 1.3rem; color: var(--wine); margin: .6rem 0 .5rem; }
+.rich-text h3 { font-family: 'Segoe UI', 'Playfair Display', serif; font-size: 1.1rem; color: var(--wine); margin: .6rem 0 .4rem; }
 .rich-text ul, .rich-text ol { margin: 0 0 .7rem; padding-left: 1.4rem; }
 .rich-text ul { list-style: disc; }
 .rich-text ol { list-style: decimal; }
