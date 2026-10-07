@@ -18,6 +18,6 @@
 
   <!-- Assinatura -->
   <text x="103" y="49" font-family="'Playfair Display', 'Cormorant Garamond', serif" font-size="30" font-weight="600" letter-spacing="0.28em" fill="#541623">AVELINE</text>
-  <text x="105" y="66" font-family="'Plus Jakarta Sans', sans-serif" font-size="8.5" font-weight="500" letter-spacing="0.42em" fill="#8C7377">FRAGRANCE IMPORTADOS</text>
+  <text x="105" y="66" font-family="'Plus Jakarta Sans', sans-serif" font-size="8.5" font-weight="500" letter-spacing="0.42em" fill="#8C7377">PERFUMES IMPORTADOS</text>
   <line x1="104" y1="73" x2="348" y2="73" stroke="#CBB68E" stroke-width="0.75" stroke-dasharray="2 3" opacity="0.7"/>
 </svg>

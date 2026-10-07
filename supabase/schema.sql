@@ -1,5 +1,5 @@
 -- =====================================================================
---  AVELINE – Fragrance Importados
+--  AVELINE – Perfumes Importados
 --  Estrutura do banco (Supabase / Postgres)
 --
 --  Como usar: Supabase > projeto "aveline" > SQL Editor > New query,

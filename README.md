@@ -1,4 +1,4 @@
-# AVELINE – Fragrance Importados
+# AVELINE – Perfumes Importados
 
 Loja estática (HTML + CSS + JS) com catálogo e imagens gerenciados pelo **Supabase**
 (projeto `aveline`) e painel administrativo com login via **GitHub** (conta `aveline`).
