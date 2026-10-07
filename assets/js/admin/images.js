@@ -24,7 +24,7 @@ async function optimizeImage(file) {
     canvas.getContext('2d').drawImage(bitmap, 0, 0, width, height);
     if (bitmap.close) bitmap.close();
 
-    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', 0.86));
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', 0.92));
     if (!blob || blob.size >= file.size) return file;
 
     const baseName = file.name.replace(/\.[^.]+$/, '');
