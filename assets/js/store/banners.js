@@ -5,6 +5,7 @@
 
 function storeBannerHtml(b) {
   const hasText = Boolean(b.title || b.description);
+  const full = b.full_width;
   const img = b.image_url
     ? '<img src="' + esc(b.image_url) + '" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" onerror="this.remove()"/>'
     : '';
@@ -18,10 +19,11 @@ function storeBannerHtml(b) {
       '</div>'
     : '';
   const size = hasText ? 'min-h-[220px] sm:min-h-[260px] lg:min-h-0 lg:aspect-[4/1]' : 'aspect-[3/1] sm:aspect-[4/1]';
+  const wrapper = full ? 'w-full' : 'max-w-[1380px] mx-auto px-4 sm:px-8';
 
   return (
-    '<section class="max-w-[1380px] mx-auto px-4 sm:px-8 py-6">' +
-      '<div class="relative overflow-hidden flex items-center bg-brand-wine border border-brand-gold/30 ' + size + '">' +
+    '<section class="' + wrapper + ' py-6">' +
+      '<div class="relative overflow-hidden flex items-center bg-brand-wine ' + (full ? '' : 'border border-brand-gold/30 ') + size + '">' +
         img + shade + copy +
       '</div>' +
     '</section>'
@@ -32,7 +34,7 @@ async function renderStoreBanners() {
   if (!window.sb) return;
   const { data, error } = await window.sb
     .from('banners')
-    .select('id, title, description, image_url, position')
+    .select('id, title, description, image_url, position, full_width')
     .eq('active', true)
     .order('created_at', { ascending: true });
 

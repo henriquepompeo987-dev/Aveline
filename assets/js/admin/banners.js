@@ -141,6 +141,7 @@ function openBannerEditor(id) {
   setRichText('b-description', b ? b.description : '');
   form.elements.position.value = b ? b.position : 'apos-hero';
   form.elements.active.checked = b ? b.active : true;
+  form.elements.full_width.checked = b ? b.full_width : false;
   document.getElementById('banner-image-url').value = '';
 
   bannerState.editingId = b ? b.id : null;
@@ -240,6 +241,7 @@ async function saveBanner(event) {
     image_url: bannerState.image,
     position: form.elements.position.value,
     active: form.elements.active.checked,
+    full_width: form.elements.full_width.checked,
   };
 
   if (!payload.image_url && !payload.title) {

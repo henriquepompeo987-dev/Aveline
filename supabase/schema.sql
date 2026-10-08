@@ -302,7 +302,8 @@ create table if not exists public.banners (
   title       text,                                   -- HTML do editor
   description text,                                   -- HTML do editor
   image_url   text,
-  position    text not null default 'apos-hero'
+  position    text not null default 'apos-hero',
+  full_width  boolean not null default false
               check (position in ('topo', 'apos-hero', 'apos-quiz', 'apos-catalogo',
                                   'apos-decantes', 'apos-sobre', 'apos-depoimentos',
                                   'antes-rodape')),
