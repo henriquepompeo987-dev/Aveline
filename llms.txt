@@ -1,0 +1,50 @@
+# AVELINE – Perfumes Importados
+
+> Boutique online de perfumaria de nicho e importada, com curadoria de frascos originais lacrados e decantes artesanais (5 ml e 10 ml). Envio para todo o Brasil.
+
+## Sobre a AVELINE
+
+A AVELINE é uma perfumaria brasileira especializada em fragrâncias de nicho e importadas. Oferecemos frascos originais lacrados e decantes artesanais para quem deseja experimentar alta perfumaria em formatos acessíveis.
+
+## Marcas disponíveis
+
+Trabalhamos com as principais casas de nicho do mundo, incluindo:
+
+- Parfums de Marly (Delina, Layton, Pegasus, Sedley)
+- Nishane (Hacivat, Ani)
+- Tom Ford (Tobacco Vanille, Lost Cherry, Bitter Peach)
+- Creed (Aventus, Green Irish Tweed)
+- Xerjoff (Erba Pura, Naxos)
+- Amouage (Interlude Man, Reflection Man)
+- Maison Francis Kurkdjian (Baccarat Rouge 540)
+- Valentino (Born in Roma, Donna Born in Roma)
+- Carolina Herrera (212 VIP Men, 212 Men)
+- Lattafa (Tuberoza)
+
+## Produtos
+
+- **Frascos completos**: perfumes importados originais, lacrados, com nota fiscal
+- **Decantes 5 ml**: porções artesanais para experimentação
+- **Decantes 10 ml**: porções artesanais em tamanho maior
+
+## Categorias
+
+- Feminino
+- Masculino
+- Unissex
+
+## Famílias olfativas
+
+Floral, Amadeirado, Frutado, Oriental, Cítrico, Aromático, Almiscarado, Chipre, Gourmand, Especiado, Fresco, Verde, Aquático.
+
+## Contato
+
+- Site: https://avelineperfumaria.com.br
+- WhatsApp: +55 45 99132-1583
+- Instagram: @avelineperfumaria
+
+## Informações técnicas
+
+- Plataforma: site estático (HTML, CSS, JavaScript) hospedado no GitHub Pages
+- Backend: Supabase (PostgreSQL)
+- Domínio: avelineperfumaria.com.br
