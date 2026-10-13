@@ -4,14 +4,14 @@
    ===================================================================== */
 
 :root {
-  --wine: #FFFBF7;
-  --dark: #FAF7F2;
-  --cream: #541623;
+  --wine: #541623;
+  --dark: #2D1B1E;
+  --cream: #F2E9D4;
   --gold: #CBB68E;
   --gold-hover: #b8a074;
-  --linen: #541623;
-  --surface: #2D1B1E;
-  --border: #6B2A3A;
+  --linen: #FAF7F2;
+  --surface: #FFFBF7;
+  --border: #E8DED1;
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
