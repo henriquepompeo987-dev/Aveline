@@ -4,14 +4,14 @@ tailwind.config = {
     extend: {
       colors: {
         brand: {
-          wine: '#541623',
-          dark: '#2D1B1E',
-          cream: '#F2E9D4',
+          wine: '#FFFBF7',
+          dark: '#FAF7F2',
+          cream: '#541623',
           gold: '#CBB68E',
           goldHover: '#b8a074',
-          linen: '#FAF7F2',
-          surface: '#FFFBF7',
-          border: '#E8DED1',
+          linen: '#541623',
+          surface: '#2D1B1E',
+          border: '#6B2A3A',
         },
       },
       fontFamily: {
