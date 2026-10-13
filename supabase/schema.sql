@@ -203,15 +203,27 @@ create table if not exists public.events (
 
 create index if not exists events_created_idx on public.events (created_at desc);
 create index if not exists events_type_idx    on public.events (type, created_at desc);
+create index if not exists events_session_recent_idx
+  on public.events (session_id, created_at desc);
 
 alter table public.events enable row level security;
 
--- Qualquer visitante registra o próprio evento; os checks da tabela
--- limitam tamanho e formato para evitar lixo gravado.
+-- Visitante registra eventos, mas com rate limit: no máximo 30 por
+-- sessão em 5 minutos. Exige session_id preenchido para o limite
+-- funcionar e bloqueia floods de inserções anônimas.
 drop policy if exists "events: visitante registra" on public.events;
 create policy "events: visitante registra" on public.events
   for insert to anon, authenticated
-  with check (true);
+  with check (
+    session_id is not null
+    and length(session_id) between 10 and 64
+    and (
+      select count(*)
+      from public.events e
+      where e.session_id = events.session_id
+        and e.created_at > now() - interval '5 minutes'
+    ) < 30
+  );
 
 drop policy if exists "events: admin lê" on public.events;
 create policy "events: admin lê" on public.events

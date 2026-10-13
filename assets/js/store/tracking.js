@@ -6,6 +6,9 @@
    ===================================================================== */
 
 const SESSION_KEY = 'aveline_session';
+const EVENT_WINDOW_MS = 5 * 60 * 1000;
+const EVENT_MAX = 25;
+let eventTimestamps = [];
 
 function sessionId() {
   let id = storage.get(SESSION_KEY, null);
@@ -18,10 +21,14 @@ function sessionId() {
 
 function trackEvent(type, payload) {
   if (!window.sb) return;
+  var now = Date.now();
+  eventTimestamps = eventTimestamps.filter(function (t) { return now - t < EVENT_WINDOW_MS; });
+  if (eventTimestamps.length >= EVENT_MAX) return;
+  eventTimestamps.push(now);
   window.sb
     .from('events')
     .insert([Object.assign({ type: type, session_id: sessionId() }, payload)])
-    .then(null, () => {});
+    .then(null, function () {});
 }
 
 function trackAddToCart(product, variant, price) {

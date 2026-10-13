@@ -106,6 +106,30 @@ create policy "produtos: admin lista" on storage.objects
 
 
 -- ---------------------------------------------------------------------
+-- AVISO 7 – "Policy de eventos permite inserção irrestrita"
+--   O with check (true) original permite flood de eventos falsos.
+--   A nova policy exige session_id e limita a 30 eventos por sessão
+--   em janela de 5 minutos. Índice dedicado para a contagem ser rápida.
+-- ---------------------------------------------------------------------
+create index if not exists events_session_recent_idx
+  on public.events (session_id, created_at desc);
+
+drop policy if exists "events: visitante registra" on public.events;
+create policy "events: visitante registra" on public.events
+  for insert to anon, authenticated
+  with check (
+    session_id is not null
+    and length(session_id) between 10 and 64
+    and (
+      select count(*)
+      from public.events e
+      where e.session_id = events.session_id
+        and e.created_at > now() - interval '5 minutes'
+    ) < 30
+  );
+
+
+-- ---------------------------------------------------------------------
 -- Conferência: liste as policies ativas depois de rodar
 -- ---------------------------------------------------------------------
 -- select schemaname, tablename, policyname, roles, cmd
