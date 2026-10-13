@@ -67,7 +67,7 @@ function renderWishlist() {
         '<div class="flex items-center justify-between mt-2 gap-2">' +
           '<span class="font-serif text-sm font-bold text-brand-wine">' + formatBRL(p.price) + '</span>' +
           (p.in_stock
-            ? '<button onclick="addToCart(\'' + p.id + '\')" class="px-3 py-1.5 bg-brand-wine text-white text-[9px] font-bold tracking-widest uppercase hover:bg-brand-dark">Sacola</button>'
+            ? '<button onclick="addToCart(\'' + p.id + '\')" class="px-3 py-1.5 bg-brand-gold text-brand-linen text-[9px] font-bold tracking-widest uppercase hover:bg-brand-goldHover">Sacola</button>'
             : '<span class="text-[9px] font-bold tracking-widest uppercase text-brand-dark/50">Esgotado</span>') +
         '</div>' +
       '</div>' +

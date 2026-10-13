@@ -35,7 +35,7 @@
 </aside>
 
 <!-- ========== SACOLA (CARRINHO) ========== -->
-<aside id="cart-drawer" class="drawer drawer-right fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl flex flex-col border-l border-brand-gold/30" aria-label="Sacola">
+<aside id="cart-drawer" class="drawer drawer-right fixed inset-y-0 right-0 z-50 w-full max-w-md bg-brand-surface shadow-2xl flex flex-col border-l border-brand-gold/30" aria-label="Sacola">
   <div class="p-6 bg-brand-linen border-b border-brand-border flex items-center justify-between">
     <div class="flex items-center gap-2">
       <span class="material-symbols-outlined text-brand-wine">local_mall</span>
@@ -67,17 +67,17 @@
     </div>
 
     <div class="space-y-2 pt-2 text-xs">
-      <input type="text" id="order-customer-name" autocomplete="name" placeholder="Seu Nome Completo" class="order-field w-full px-3 py-3 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine"/>
+      <input type="text" id="order-customer-name" autocomplete="name" placeholder="Seu Nome Completo" class="order-field w-full px-3 py-3 bg-brand-linen text-brand-dark border border-brand-border text-xs focus:outline-none focus:border-brand-gold"/>
       <div class="grid grid-cols-2 gap-2">
         <div class="relative">
-          <input type="text" id="order-customer-cep" inputmode="numeric" autocomplete="postal-code" placeholder="CEP de Entrega" maxlength="9" class="order-field w-full px-3 py-3 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine" oninput="onCepInput(this)"/>
+          <input type="text" id="order-customer-cep" inputmode="numeric" autocomplete="postal-code" placeholder="CEP de Entrega" maxlength="9" class="order-field w-full px-3 py-3 bg-brand-linen text-brand-dark border border-brand-border text-xs focus:outline-none focus:border-brand-gold" oninput="onCepInput(this)"/>
           <span id="cep-spinner" class="hidden absolute right-2 top-1/2 -translate-y-1/2">
             <span class="material-symbols-outlined text-[14px] text-brand-gold animate-spin">progress_activity</span>
           </span>
         </div>
-        <input type="tel" id="order-customer-phone" autocomplete="tel" placeholder="Seu WhatsApp" class="order-field w-full px-3 py-3 bg-white border border-brand-border text-xs focus:outline-none focus:border-brand-wine"/>
+        <input type="tel" id="order-customer-phone" autocomplete="tel" placeholder="Seu WhatsApp" class="order-field w-full px-3 py-3 bg-brand-linen text-brand-dark border border-brand-border text-xs focus:outline-none focus:border-brand-gold"/>
       </div>
-      <div id="cep-result" class="hidden px-3 py-2 bg-white border border-brand-border text-[11px] text-brand-dark/80 leading-relaxed">
+      <div id="cep-result" class="hidden px-3 py-2 bg-brand-linen border border-brand-border text-[11px] text-brand-dark/80 leading-relaxed">
         <div class="flex items-start gap-2">
           <span class="material-symbols-outlined text-brand-gold text-[16px] mt-0.5">location_on</span>
           <span id="cep-address"></span>
@@ -86,7 +86,7 @@
       <p id="cep-error" class="hidden text-[11px] text-red-600 px-1"></p>
     </div>
 
-    <button onclick="checkoutViaWhatsApp()" class="w-full py-4 bg-brand-wine text-white text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-all flex items-center justify-center gap-2 shadow-lg">
+    <button onclick="checkoutViaWhatsApp()" class="w-full py-4 bg-brand-gold text-brand-linen text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-goldHover transition-all flex items-center justify-center gap-2 shadow-lg">
       <span class="material-symbols-outlined text-[18px]">chat</span>
       Finalizar pedido pelo WhatsApp
     </button>
@@ -95,7 +95,7 @@
 </aside>
 
 <!-- ========== FAVORITOS ========== -->
-<aside id="wishlist-drawer" class="drawer drawer-right fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl flex flex-col border-l border-brand-gold/30" aria-label="Favoritos">
+<aside id="wishlist-drawer" class="drawer drawer-right fixed inset-y-0 right-0 z-50 w-full max-w-md bg-brand-surface shadow-2xl flex flex-col border-l border-brand-gold/30" aria-label="Favoritos">
   <div class="p-6 bg-brand-linen border-b border-brand-border flex items-center justify-between">
     <div class="flex items-center gap-2">
       <span class="material-symbols-outlined text-brand-wine">favorite</span>
@@ -112,7 +112,7 @@
 <div id="product-modal" class="modal !p-0 sm:!p-4" role="dialog" aria-modal="true" aria-labelledby="pm-name">
   <div class="absolute inset-0 hidden sm:block" onclick="closeAllOverlays()"></div>
   <div class="modal-panel relative w-full max-w-5xl bg-brand-surface border-0 sm:border border-brand-gold/40 shadow-2xl max-h-[100vh] sm:max-h-[calc(100vh-2rem)]">
-    <button onclick="closeAllOverlays()" class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-11 h-11 rounded-full bg-white/90 border border-brand-border flex items-center justify-center text-brand-dark/70 hover:text-brand-wine" aria-label="Fechar">
+    <button onclick="closeAllOverlays()" class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-11 h-11 rounded-full bg-brand-surface/90 border border-brand-border flex items-center justify-center text-brand-dark/70 hover:text-brand-wine" aria-label="Fechar">
       <span class="material-symbols-outlined text-[20px]">close</span>
     </button>
     <div id="product-modal-content"></div>
@@ -122,7 +122,7 @@
 <!-- ========== BUSCA ========== -->
 <div id="search-modal" class="modal !items-start !pt-4 sm:!pt-20" role="dialog" aria-modal="true" aria-label="Pesquisar">
   <div class="absolute inset-0" onclick="closeAllOverlays()"></div>
-  <div class="modal-panel relative w-full max-w-2xl bg-white border border-brand-gold/40 shadow-2xl">
+  <div class="modal-panel relative w-full max-w-2xl bg-brand-surface border border-brand-gold/40 shadow-2xl">
     <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-border">
       <span class="material-symbols-outlined text-brand-gold">search</span>
       <input id="search-input" type="search" oninput="runSearch(this.value)" placeholder="Busque por perfume, casa, nota ou família olfativa..." class="flex-1 text-sm bg-transparent focus:outline-none"/>
@@ -149,7 +149,7 @@
       <h3 class="font-serif text-2xl text-brand-wine">Atendimento personalizado</h3>
       <p class="text-sm text-brand-dark/70">Acompanhe pedidos, tire dúvidas sobre notas e receba indicações exclusivas direto com nossa equipe.</p>
     </div>
-    <a href="#" data-link="whatsapp-hello" target="_blank" rel="noopener" class="block w-full py-3 bg-brand-wine text-white text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-colors">
+    <a href="#" data-link="whatsapp-hello" target="_blank" rel="noopener" class="block w-full py-3 bg-brand-gold text-brand-linen text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-goldHover transition-colors">
       Falar com o concierge
     </a>
   </div>

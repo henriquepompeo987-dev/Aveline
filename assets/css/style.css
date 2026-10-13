@@ -4,14 +4,14 @@
    ===================================================================== */
 
 :root {
-  --wine: #541623;
-  --dark: #2D1B1E;
-  --cream: #F2E9D4;
+  --wine: #F2E9D4;
+  --dark: #F5EDE0;
+  --cream: #541623;
   --gold: #CBB68E;
   --gold-hover: #b8a074;
-  --linen: #FAF7F2;
-  --surface: #FFFBF7;
-  --border: #E8DED1;
+  --linen: #1A0A10;
+  --surface: #2D1B1E;
+  --border: #4A2A33;
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
@@ -51,7 +51,7 @@ input, select, textarea, button { font-family: inherit; }
 
 /* ---------- Header ---------- */
 .glass-nav {
-  background: rgba(255, 251, 247, 0.95);
+  background: rgba(45, 27, 30, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -61,7 +61,7 @@ input, select, textarea, button { font-family: inherit; }
 
 .nav-pill {
   padding: .35rem .85rem;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--border);
   color: var(--dark);
   font-size: .68rem;
@@ -73,12 +73,12 @@ input, select, textarea, button { font-family: inherit; }
   white-space: nowrap;
 }
 .nav-pill:hover { border-color: var(--wine); color: var(--wine); }
-.nav-pill.is-active { background: var(--wine); border-color: var(--wine); color: #fff; }
+.nav-pill.is-active { background: var(--gold); border-color: var(--gold); color: #1A0A10; }
 
 /* ---------- Filtros do catálogo ---------- */
 .cat-pill {
   padding: .4rem 1rem;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--border);
   color: var(--dark);
   font-size: .75rem;
@@ -89,21 +89,22 @@ input, select, textarea, button { font-family: inherit; }
   transition: all .2s;
 }
 .cat-pill:hover { border-color: var(--wine); }
-.cat-pill.is-active { background: var(--wine); border-color: var(--wine); color: #fff; }
+.cat-pill.is-active { background: var(--gold); border-color: var(--gold); color: #1A0A10; }
 
 /* ---------- Bússola olfativa ---------- */
 .tag-btn {
   padding: .5rem 1rem;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--border);
   font-size: .75rem;
   font-weight: 600;
   letter-spacing: .05em;
   text-transform: uppercase;
   transition: all .2s;
+  color: var(--dark);
 }
 .tag-btn:hover { border-color: var(--gold); }
-.tag-btn.is-active { background: var(--gold); border-color: var(--gold); color: var(--wine); }
+.tag-btn.is-active { background: var(--gold); border-color: var(--gold); color: #1A0A10; }
 
 /* ---------- Carrossel do hero ---------- */
 .hero-slide { transition: opacity .7s ease; }
@@ -117,14 +118,14 @@ input, select, textarea, button { font-family: inherit; }
 .hero-dot.is-active { opacity: 1; transform: scale(1.25); }
 
 /* ---------- Cards de produto ---------- */
-.product-media { position: relative; overflow: hidden; background: rgba(242, 233, 212, .35); }
+.product-media { position: relative; overflow: hidden; background: rgba(74, 42, 51, .35); }
 .product-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
 .group:hover .product-media img { transform: scale(1.05); }
 .product-placeholder {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
   color: var(--gold);
-  background: radial-gradient(circle at 50% 40%, #fff 0%, rgba(242, 233, 212, .55) 70%);
+  background: radial-gradient(circle at 50% 40%, #2D1B1E 0%, rgba(74, 42, 51, .55) 70%);
 }
 .product-placeholder .material-symbols-outlined { font-size: 56px; }
 /* Miniaturas (sacola, favoritos, busca): placeholder compacto */
@@ -140,14 +141,14 @@ input, select, textarea, button { font-family: inherit; }
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--wine);
-  background: rgba(242, 233, 212, .7);
-  border: 1px solid rgba(203, 182, 142, .4);
+  background: rgba(74, 42, 51, .5);
+  border: 1px solid rgba(203, 182, 142, .3);
 }
 
 /* ---------- Drawers, modais e overlay ---------- */
 .backdrop {
   position: fixed; inset: 0; z-index: 45;
-  background: rgba(45, 27, 30, .45);
+  background: rgba(0, 0, 0, .6);
   backdrop-filter: blur(2px);
   opacity: 0; pointer-events: none;
   transition: opacity .3s;
@@ -178,13 +179,14 @@ body.is-locked { overflow: hidden; }
   width: 100%;
   padding: .75rem 1rem;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--surface);
+  color: var(--dark);
   font-size: .8rem;
   cursor: pointer;
   transition: all .2s;
 }
 .variant-option:hover { border-color: var(--wine); }
-.variant-option.is-active { border-color: var(--wine); background: rgba(242, 233, 212, .5); box-shadow: inset 3px 0 0 var(--wine); }
+.variant-option.is-active { border-color: var(--wine); background: rgba(74, 42, 51, .5); box-shadow: inset 3px 0 0 var(--wine); }
 
 .thumb-btn { border: 1px solid var(--border); opacity: .7; transition: all .2s; }
 .thumb-btn:hover, .thumb-btn.is-active { border-color: var(--wine); opacity: 1; }
@@ -207,7 +209,7 @@ body.is-locked { overflow: hidden; }
 
 /* ---------- Skeleton de carregamento ---------- */
 .skeleton {
-  background: linear-gradient(90deg, #f3ece0 25%, #faf6ef 50%, #f3ece0 75%);
+  background: linear-gradient(90deg, #2D1B1E 25%, #3D2529 50%, #2D1B1E 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
 }
@@ -236,7 +238,7 @@ body { overflow-x: clip; }
     display: flex; align-items: center;
     min-height: 48px;
     padding: 0 .5rem;
-    border-bottom: 1px solid rgba(232, 222, 209, .7);
+    border-bottom: 1px solid rgba(74, 42, 51, .7);
   }
   #mobile-menu-nav > *:last-child { border-bottom: none; }
 
@@ -366,7 +368,7 @@ body { overflow-x: clip; }
 .rich-text a { color: var(--wine); text-decoration: underline; }
 .rich-text pre {
   margin: 0 0 .7rem; padding: .6rem .7rem;
-  background: rgba(242, 233, 212, .4);
+  background: rgba(74, 42, 51, .4);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: .78rem; white-space: pre-wrap;
 }
@@ -399,14 +401,14 @@ body { overflow-x: clip; }
   transform: translateY(-50%);
   display: flex; align-items: center; justify-content: center;
   width: 44px; height: 44px;
-  color: var(--cream);
-  background: rgba(45, 27, 30, .45);
+  color: #F2E9D4;
+  background: rgba(26, 10, 16, .6);
   border: 1px solid rgba(203, 182, 142, .45);
   border-radius: 9999px;
   backdrop-filter: blur(4px);
   transition: background .2s, border-color .2s;
 }
-.banner-arrow:hover, .hero-arrow:hover { background: rgba(84, 22, 35, .85); border-color: var(--gold); }
+.banner-arrow:hover, .hero-arrow:hover { background: rgba(26, 10, 16, .85); border-color: var(--gold); }
 .banner-arrow-prev, .hero-arrow-prev { left: 12px; }
 .banner-arrow-next, .hero-arrow-next { right: 12px; }
 
@@ -421,7 +423,7 @@ body { overflow-x: clip; }
 .banner-dot {
   width: 9px; height: 9px;
   border-radius: 9999px;
-  background: rgba(242, 233, 212, .45);
+  background: rgba(203, 182, 142, .3);
   border: 1px solid rgba(203, 182, 142, .6);
   transition: background .2s, width .2s;
 }

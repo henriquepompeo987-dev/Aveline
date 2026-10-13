@@ -71,7 +71,7 @@ function runSearch(query) {
   }
 
   box.innerHTML = results.map((p) =>
-    '<button onclick="openProduct(\'' + p.id + '\')" class="w-full flex items-center gap-4 p-3 text-left hover:bg-brand-linen transition-colors">' +
+    '<button onclick="openProduct(\'' + p.id + '\')" class="w-full flex items-center gap-4 p-3 text-left hover:bg-brand-border transition-colors">' +
       '<div class="product-media w-14 h-16 flex-shrink-0 border border-brand-border">' + productImageHtml(p) + '</div>' +
       '<div class="flex-1 min-w-0">' +
         '<span class="text-[9px] tracking-[0.2em] uppercase text-brand-gold font-bold">' + esc(p.house) + '</span>' +

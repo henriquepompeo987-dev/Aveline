@@ -19,14 +19,14 @@ function storeBannerSlideHtml(b, groupHasText) {
     ? '<div class="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-brand-dark/45 to-transparent"></div>'
     : '';
   const copy = hasText
-    ? '<div class="banner-copy relative p-6 sm:p-10 lg:p-14 max-w-2xl text-brand-cream">' +
+    ? '<div class="banner-copy relative p-6 sm:p-10 lg:p-14 max-w-2xl text-brand-dark">' +
         (b.title ? '<div class="banner-title font-serif text-2xl sm:text-4xl leading-tight">' + sanitizeHtml(b.title) + '</div>' : '') +
-        (b.description ? '<div class="rich-text text-sm sm:text-base leading-relaxed text-brand-cream/90 mt-3">' + sanitizeHtml(b.description) + '</div>' : '') +
+        (b.description ? '<div class="rich-text text-sm sm:text-base leading-relaxed text-brand-dark/90 mt-3">' + sanitizeHtml(b.description) + '</div>' : '') +
       '</div>'
     : '';
 
   return (
-    '<div class="banner-slide relative overflow-hidden flex items-center bg-brand-wine w-full shrink-0">' +
+    '<div class="banner-slide relative overflow-hidden flex items-center bg-brand-linen w-full shrink-0">' +
       img + shade + copy +
     '</div>'
   );
