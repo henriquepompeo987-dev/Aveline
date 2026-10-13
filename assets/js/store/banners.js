@@ -4,15 +4,10 @@
    Dois ou mais banners na mesma posição viram um carrossel.
    ===================================================================== */
 
-/* groupHasText: o grupo inteiro usa altura fixa quando algum banner tem
-   texto, porque o texto precisa de uma área previsível. Sem texto, a
-   imagem aparece inteira e a altura segue a proporção dela. */
-function storeBannerSlideHtml(b, groupHasText) {
+function storeBannerSlideHtml(b) {
   const hasText = Boolean(b.title || b.description);
   const img = b.image_url
-    ? (groupHasText
-        ? '<img src="' + esc(b.image_url) + '" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" onerror="this.remove()"/>'
-        : '<img src="' + esc(b.image_url) + '" alt="" class="block w-full h-auto" loading="lazy" onerror="this.remove()"/>')
+    ? '<img src="' + esc(b.image_url) + '" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" onerror="this.remove()"/>'
     : '';
   const shade = b.image_url && hasText
     ? '<div class="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-brand-dark/45 to-transparent"></div>'
@@ -33,8 +28,8 @@ function storeBannerSlideHtml(b, groupHasText) {
 
 function storeBannerGroupHtml(list, slotName) {
   const hasText = list.some((b) => b.title || b.description);
-  const size = hasText ? 'h-[420px] sm:h-[480px] lg:h-[520px]' : '';
-  const slides = list.map((b) => storeBannerSlideHtml(b, hasText)).join('');
+  const size = hasText ? 'h-[420px] sm:h-[480px] lg:h-[520px]' : 'h-[350px] sm:h-[420px] lg:h-[480px]';
+  const slides = list.map(storeBannerSlideHtml).join('');
 
   if (list.length < 2) {
     return '<section class="w-full"><div class="banner-carousel ' + size + '">' + slides + '</div></section>';
