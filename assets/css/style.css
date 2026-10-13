@@ -15,6 +15,7 @@
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+.font-serif { font-variant-numeric: lining-nums; }
 body { background: var(--linen); }
 
 /* Navegadores nao aplicam a fonte da pagina em controles de formulario. */
