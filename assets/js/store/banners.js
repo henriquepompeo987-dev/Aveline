@@ -4,10 +4,16 @@
    Dois ou mais banners na mesma posição viram um carrossel.
    ===================================================================== */
 
-function storeBannerSlideHtml(b) {
+/* groupHasText: com texto sobreposto o grupo usa altura fixa, porque o
+   texto precisa de uma área previsível. Sem texto, cada imagem aparece
+   inteira e a altura do carrossel acompanha a imagem visível — assim
+   imagens de proporções diferentes não sobram espaço nem são cortadas. */
+function storeBannerSlideHtml(b, groupHasText) {
   const hasText = Boolean(b.title || b.description);
   const img = b.image_url
-    ? '<img src="' + esc(b.image_url) + '" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" onerror="this.remove()"/>'
+    ? (groupHasText
+        ? '<img src="' + esc(b.image_url) + '" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" onerror="this.remove()"/>'
+        : '<img src="' + esc(b.image_url) + '" alt="" class="block w-full h-auto" loading="lazy" onerror="this.remove()"/>')
     : '';
   const shade = b.image_url && hasText
     ? '<div class="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-brand-dark/45 to-transparent"></div>'
@@ -28,32 +34,41 @@ function storeBannerSlideHtml(b) {
 
 function storeBannerGroupHtml(list, slotName) {
   const hasText = list.some((b) => b.title || b.description);
-  const size = hasText ? 'h-[420px] sm:h-[480px] lg:h-[520px]' : 'h-[350px] sm:h-[420px] lg:h-[480px]';
-  const slides = list.map(storeBannerSlideHtml).join('');
+  const size = hasText ? 'h-[420px] sm:h-[480px] lg:h-[520px]' : '';
+  const slides = list.map((b) => storeBannerSlideHtml(b, hasText)).join('');
 
-  if (list.length < 2) {
-    return '<section class="w-full"><div class="banner-carousel ' + size + '">' + slides + '</div></section>';
+  let nav = '';
+  if (list.length > 1) {
+    const dots = list.map((_, i) =>
+      '<button type="button" class="banner-dot' + (i === 0 ? ' is-active' : '') +
+      '" data-banner-go="' + i + '" aria-label="Ir para o banner ' + (i + 1) + '"></button>'
+    ).join('');
+    nav =
+      '<button type="button" class="banner-arrow banner-arrow-prev" data-banner-nav="-1" aria-label="Banner anterior">' +
+        '<span class="material-symbols-outlined">chevron_left</span>' +
+      '</button>' +
+      '<button type="button" class="banner-arrow banner-arrow-next" data-banner-nav="1" aria-label="Próximo banner">' +
+        '<span class="material-symbols-outlined">chevron_right</span>' +
+      '</button>' +
+      '<div class="banner-dots">' + dots + '</div>';
   }
-
-  const dots = list.map((_, i) =>
-    '<button type="button" class="banner-dot' + (i === 0 ? ' is-active' : '') +
-    '" data-banner-go="' + i + '" aria-label="Ir para o banner ' + (i + 1) + '"></button>'
-  ).join('');
 
   return (
     '<section class="w-full">' +
-      '<div class="banner-carousel ' + size + '" data-banner-carousel="' + esc(slotName) + '" data-banner-index="0">' +
-        '<div class="banner-track">' + slides + '</div>' +
-        '<button type="button" class="banner-arrow banner-arrow-prev" data-banner-nav="-1" aria-label="Banner anterior">' +
-          '<span class="material-symbols-outlined">chevron_left</span>' +
-        '</button>' +
-        '<button type="button" class="banner-arrow banner-arrow-next" data-banner-nav="1" aria-label="Próximo banner">' +
-          '<span class="material-symbols-outlined">chevron_right</span>' +
-        '</button>' +
-        '<div class="banner-dots">' + dots + '</div>' +
+      '<div class="banner-carousel ' + size + '" data-banner-carousel="' + esc(slotName) + '"' +
+        ' data-banner-index="0" data-banner-fixed="' + (hasText ? '1' : '0') + '">' +
+        '<div class="banner-track">' + slides + '</div>' + nav +
       '</div>' +
     '</section>'
   );
+}
+
+/* Sem texto o carrossel não tem altura fixa: ele assume a altura da
+   imagem visível, para não cortar nem deixar sobra. */
+function syncBannerCarouselHeight(carousel) {
+  if (carousel.dataset.bannerFixed === '1') return;
+  const slide = carousel.querySelectorAll('.banner-slide')[Number(carousel.dataset.bannerIndex) || 0];
+  if (slide && slide.offsetHeight) carousel.style.height = slide.offsetHeight + 'px';
 }
 
 function goToBannerSlide(carousel, index) {
@@ -66,9 +81,19 @@ function goToBannerSlide(carousel, index) {
   carousel.querySelectorAll('.banner-dot').forEach((dot, i) => {
     dot.classList.toggle('is-active', i === next);
   });
+  syncBannerCarouselHeight(carousel);
 }
 
 function bindBannerCarousel(carousel) {
+  // As imagens chegam depois: cada uma recalcula a altura ao carregar.
+  carousel.querySelectorAll('img').forEach((img) => {
+    if (img.complete) return;
+    img.addEventListener('load', () => syncBannerCarouselHeight(carousel), { once: true });
+  });
+  syncBannerCarouselHeight(carousel);
+}
+
+function bindBannerCarouselNav(carousel) {
   carousel.addEventListener('click', (e) => {
     const nav = e.target.closest('[data-banner-nav]');
     if (nav) {
@@ -110,6 +135,12 @@ async function renderStoreBanners() {
     const list = (data || []).filter((b) => b.position === name);
     slot.innerHTML = list.length ? storeBannerGroupHtml(list, name) : '';
     const carousel = slot.querySelector('[data-banner-carousel]');
-    if (carousel) bindBannerCarousel(carousel);
+    if (!carousel) return;
+    bindBannerCarousel(carousel);
+    if (list.length > 1) bindBannerCarouselNav(carousel);
+  });
+
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('[data-banner-carousel]').forEach(syncBannerCarouselHeight);
   });
 }

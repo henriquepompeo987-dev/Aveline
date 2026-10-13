@@ -361,11 +361,19 @@ body { overflow-x: clip; }
 .banner-title ol { list-style: decimal; }
 
 /* ---------- Carrossel de banners ---------- */
-.banner-carousel { position: relative; overflow: hidden; width: 100%; }
-.banner-track { display: flex; height: 100%; transition: transform .5s cubic-bezier(.22, .61, .36, 1); }
-.banner-slide { width: 100%; height: 100%; }
-/* Sem carrossel (banner único) o track não existe: o slide ocupa tudo */
-.banner-carousel > .banner-slide { height: 100%; }
+.banner-carousel {
+  position: relative; overflow: hidden; width: 100%;
+  transition: height .45s cubic-bezier(.22, .61, .36, 1);
+}
+.banner-track {
+  display: flex; height: 100%;
+  align-items: flex-start;   /* sem esticar: cada imagem mantém a altura dela */
+  transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+}
+.banner-slide { width: 100%; }
+/* Com texto sobreposto a altura é fixa, então o slide preenche o carrossel */
+.banner-carousel[data-banner-fixed="1"] .banner-track { align-items: stretch; }
+.banner-carousel[data-banner-fixed="1"] .banner-slide { height: 100%; }
 
 .banner-arrow {
   position: absolute; top: 50%; z-index: 2;
