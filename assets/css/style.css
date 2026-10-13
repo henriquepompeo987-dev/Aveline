@@ -18,9 +18,18 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 .font-serif { font-variant-numeric: lining-nums; }
 body { background: var(--linen); }
 
-.announcement-marquee {
-  display: inline-block;
-  animation: marquee 18s linear infinite;
+.announcement-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+.announcement-segment {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 @keyframes marquee {
   0%   { transform: translateX(0); }
