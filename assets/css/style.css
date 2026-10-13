@@ -21,7 +21,7 @@ body { background: var(--linen); }
 .announcement-track {
   display: flex;
   width: max-content;
-  animation: marquee 24s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 .announcement-segment {
   flex-shrink: 0;
