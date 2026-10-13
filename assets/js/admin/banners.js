@@ -37,15 +37,17 @@ async function loadBanners() {
   const { data, error } = await window.sb
     .from('banners')
     .select('*')
+    .order('position', { ascending: true })
+    .order('sort_order', { ascending: true })
     .order('created_at', { ascending: true });
 
   if (error) {
     console.error(error);
-    const hint = error.code === '42P01' || /banners/.test(error.message || '')
-      ? ' Rode novamente o supabase/schema.sql para criar a tabela.'
+    const hint = error.code === '42P01' || /banners|sort_order/.test(error.message || '')
+      ? ' Rode novamente o supabase/schema.sql no Supabase para atualizar a tabela.'
       : '';
     document.getElementById('banner-rows').innerHTML =
-      '<tr><td colspan="5" class="text-center py-10 text-red-700">Erro ao carregar banners: ' + esc(error.message) + esc(hint) + '</td></tr>';
+      '<tr><td colspan="6" class="text-center py-10 text-red-700">Erro ao carregar banners: ' + esc(error.message) + esc(hint) + '</td></tr>';
     return;
   }
   bannerState.banners = data || [];
@@ -59,12 +61,16 @@ function renderBannerTable() {
 
   if (!list.length) {
     tbody.innerHTML =
-      '<tr><td colspan="5" class="text-center py-14">' +
+      '<tr><td colspan="6" class="text-center py-14">' +
         '<p class="font-serif text-xl text-brand-wine">Nenhum banner criado</p>' +
         '<p class="text-xs text-brand-dark/60 mt-1">Clique em "Novo banner" para criar o primeiro.</p>' +
       '</td></tr>';
     return;
   }
+
+  // Posições com dois ou mais banners viram carrossel na loja
+  const perPosition = {};
+  list.forEach((b) => { perPosition[b.position] = (perPosition[b.position] || 0) + 1; });
 
   tbody.innerHTML = list.map((b) => {
     const titleText = htmlToText(b.title);
@@ -72,11 +78,15 @@ function renderBannerTable() {
     const thumb = b.image_url
       ? '<img src="' + esc(b.image_url) + '" alt="" class="w-full h-full object-cover" loading="lazy"/>'
       : '<span class="material-symbols-outlined text-brand-gold">image</span>';
+    const carousel = perPosition[b.position] > 1
+      ? '<span class="block text-[10px] text-brand-gold font-bold uppercase tracking-wider mt-1">Carrossel de ' + perPosition[b.position] + '</span>'
+      : '';
     return (
       '<tr class="' + (b.active ? '' : 'is-inactive') + '">' +
         '<td><div class="w-40 aspect-[4/1] border border-brand-border bg-brand-linen flex items-center justify-center overflow-hidden">' + thumb + '</div></td>' +
         '<td><button onclick="openBannerEditor(\'' + b.id + '\')" class="text-left font-serif text-base font-bold text-brand-wine hover:underline">' + title + '</button></td>' +
-        '<td class="text-xs">' + esc(positionLabel(b.position)) + '</td>' +
+        '<td class="text-xs">' + esc(positionLabel(b.position)) + carousel + '</td>' +
+        '<td class="text-center font-serif text-lg text-brand-wine">' + (b.sort_order || 0) + '</td>' +
         '<td>' + (b.active ? '<span class="status-pill ok">Visível</span>' : '<span class="status-pill off">Oculto</span>') + '</td>' +
         '<td class="text-right whitespace-nowrap">' +
           '<button onclick="toggleBannerActive(\'' + b.id + '\')" class="icon-btn" title="' + (b.active ? 'Ocultar da loja' : 'Mostrar na loja') + '">' +
@@ -93,6 +103,11 @@ function replaceBannerInState(banner) {
   const idx = bannerState.banners.findIndex((b) => b.id === banner.id);
   if (idx >= 0) bannerState.banners[idx] = banner;
   else bannerState.banners.push(banner);
+  bannerState.banners.sort((a, b) =>
+    a.position.localeCompare(b.position) ||
+    (a.sort_order || 0) - (b.sort_order || 0) ||
+    String(a.created_at).localeCompare(String(b.created_at))
+  );
   renderBannerTable();
 }
 
@@ -130,15 +145,24 @@ function fillBannerPositions() {
   select.innerHTML = BANNER_POSITIONS.map((p) => '<option value="' + p.value + '">' + esc(p.label) + '</option>').join('');
 }
 
+function nextSortOrder(position) {
+  const used = bannerState.banners
+    .filter((b) => b.position === position)
+    .map((b) => b.sort_order || 0);
+  return used.length ? Math.max.apply(null, used) + 1 : 1;
+}
+
 function openBannerEditor(id) {
   const b = id ? bannerState.banners.find((x) => x.id === id) : null;
   const form = document.getElementById('banner-form');
+  const position = b ? b.position : 'apos-hero';
 
   fillBannerPositions();
   form.reset();
   setRichText('b-title', b ? b.title : '');
   setRichText('b-description', b ? b.description : '');
-  form.elements.position.value = b ? b.position : 'apos-hero';
+  form.elements.position.value = position;
+  form.elements.sort_order.value = b ? (b.sort_order || 1) : nextSortOrder(position);
   form.elements.active.checked = b ? b.active : true;
   form.elements.full_width.checked = b ? b.full_width : false;
   document.getElementById('banner-image-url').value = '';
@@ -239,6 +263,7 @@ async function saveBanner(event) {
     description: textOrNull(form.elements.description.value),
     image_url: bannerState.image,
     position: form.elements.position.value,
+    sort_order: Math.max(0, parseInt(form.elements.sort_order.value, 10) || 0),
     active: form.elements.active.checked,
     full_width: form.elements.full_width.checked,
   };

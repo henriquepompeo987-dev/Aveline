@@ -305,21 +305,31 @@ create policy "account_logs: admin exclui" on public.account_logs
 -- 3d. BANNERS
 --     Faixas horizontais criadas no painel. "position" diz em qual ponto
 --     da página o banner aparece (os slots estão no index.html).
+--     Vários banners podem dividir a mesma posição: quando há dois ou
+--     mais, a loja mostra um carrossel e "sort_order" define a ordem.
 -- ---------------------------------------------------------------------
 create table if not exists public.banners (
   id          uuid primary key default gen_random_uuid(),
   title       text,                                   -- HTML do editor
   description text,                                   -- HTML do editor
   image_url   text,
-  position    text not null default 'apos-hero',
-  full_width  boolean not null default false
+  position    text not null default 'apos-hero'
               check (position in ('topo', 'apos-hero', 'apos-quiz', 'apos-catalogo',
                                   'apos-decantes', 'apos-sobre', 'apos-depoimentos',
                                   'antes-rodape')),
+  full_width  boolean not null default false,
+  sort_order  integer not null default 0,              -- 1 = primeira imagem
   active      boolean not null default true,
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()
 );
+
+-- Para bancos criados antes da coluna existir
+alter table public.banners
+  add column if not exists sort_order integer not null default 0;
+
+create index if not exists banners_position_order_idx
+  on public.banners (position, sort_order);
 
 drop trigger if exists banners_set_updated_at on public.banners;
 create trigger banners_set_updated_at

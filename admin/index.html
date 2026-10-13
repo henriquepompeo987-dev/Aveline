@@ -198,12 +198,13 @@
                 <th class="w-48">Imagem</th>
                 <th>Título</th>
                 <th>Posição</th>
+                <th class="w-28">Ordem</th>
                 <th>Status</th>
                 <th class="text-right">Ações</th>
               </tr>
             </thead>
             <tbody id="banner-rows">
-              <tr><td colspan="5" class="text-center py-10 text-brand-dark/50">Carregando banners...</td></tr>
+              <tr><td colspan="6" class="text-center py-10 text-brand-dark/50">Carregando banners...</td></tr>
             </tbody>
           </table>
         </div>
@@ -546,8 +547,13 @@
             <label class="admin-label" for="b-position">Onde aparece no site</label>
             <select id="b-position" name="position" class="admin-input"></select>
           </div>
-          <label class="switch-row"><input type="checkbox" name="active" class="switch"/> <span><b>Visível na loja</b><small>Desmarque para ocultar sem excluir</small></span></label>
+          <div>
+            <label class="admin-label" for="b-sort-order">Ordem no carrossel</label>
+            <input id="b-sort-order" name="sort_order" type="number" min="1" step="1" class="admin-input" placeholder="1"/>
+            <p class="text-[11px] text-brand-dark/55 mt-1">1 = primeira imagem, 2 = segunda, e assim por diante. Com dois ou mais banners na mesma posição, a loja mostra as setas do carrossel.</p>
+          </div>
         </div>
+        <label class="switch-row"><input type="checkbox" name="active" class="switch"/> <span><b>Visível na loja</b><small>Desmarque para ocultar sem excluir</small></span></label>
         <label class="switch-row"><input type="checkbox" name="full_width" class="switch"/> <span><b>Largura total</b><small>O banner ocupa toda a largura da tela, de lado a lado</small></span></label>
       </fieldset>
     </form>
