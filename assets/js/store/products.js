@@ -147,6 +147,17 @@ function heroSlideHtml(p) {
   );
 }
 
+function heroArrowsHtml() {
+  return (
+    '<button type="button" onclick="goToSlide(heroSlideIndex - 1); startHeroTimer();" class="hero-arrow hero-arrow-prev" aria-label="Perfume anterior">' +
+      '<span class="material-symbols-outlined">chevron_left</span>' +
+    '</button>' +
+    '<button type="button" onclick="goToSlide(heroSlideIndex + 1); startHeroTimer();" class="hero-arrow hero-arrow-next" aria-label="Próximo perfume">' +
+      '<span class="material-symbols-outlined">chevron_right</span>' +
+    '</button>'
+  );
+}
+
 function goToSlide(index) {
   const slides = document.querySelectorAll('#hero-slides .hero-slide');
   const dots = document.querySelectorAll('#hero-dots button');
@@ -178,7 +189,7 @@ function renderHeroCarousel() {
     return;
   }
 
-  container.innerHTML = items.map(heroSlideHtml).join('');
+  container.innerHTML = items.map(heroSlideHtml).join('') + (items.length > 1 ? heroArrowsHtml() : '');
 
   if (dotsBox) {
     if (items.length > 1) {
