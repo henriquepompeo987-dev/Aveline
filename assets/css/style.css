@@ -18,6 +18,15 @@ html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 .font-serif { font-variant-numeric: lining-nums; }
 body { background: var(--linen); }
 
+.announcement-marquee {
+  display: inline-block;
+  animation: marquee 18s linear infinite;
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* Navegadores nao aplicam a fonte da pagina em controles de formulario. */
 input, select, textarea, button { font-family: inherit; }
 
