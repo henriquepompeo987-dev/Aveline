@@ -10,15 +10,11 @@ function saveCart() {
   storage.set(CART_KEY, cart);
 }
 
-function variantLabel(p, key) {
-  if (key === 'd5') return 'Decante 5ml';
-  if (key === 'd10') return 'Decante 10ml';
+function variantLabel(p) {
   return productSpec(p) || 'Frasco';
 }
 
-function variantPrice(p, key) {
-  if (key === 'd5') return Number(p.decant_5ml_price);
-  if (key === 'd10') return Number(p.decant_10ml_price);
+function variantPrice(p) {
   return Number(p.price);
 }
 
@@ -50,11 +46,6 @@ function addToCart(id, variant) {
   renderCart();
   trackAddToCart(p, key, price);
   showToast(p.name + ' (' + variantLabel(p, key) + ') adicionado à sacola.');
-}
-
-// Compatibilidade com chamadas antigas: addDecantToCart(id, '5ml')
-function addDecantToCart(id, size) {
-  addToCart(id, size === '10ml' ? 'd10' : 'd5');
 }
 
 function changeQty(itemKey, delta) {

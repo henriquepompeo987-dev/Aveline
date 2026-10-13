@@ -83,8 +83,19 @@ input, select, textarea, button { font-family: inherit; }
   text-transform: uppercase;
   transition: all .2s;
 }
-.tag-btn:hover { border-color: var(--wine); }
-.tag-btn.is-active { background: var(--wine); border-color: var(--wine); color: #fff; }
+.tag-btn:hover { border-color: var(--gold); }
+.tag-btn.is-active { background: var(--gold); border-color: var(--gold); color: var(--wine); }
+
+/* ---------- Carrossel do hero ---------- */
+.hero-slide { transition: opacity .7s ease; }
+.hero-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold); opacity: .35;
+  border: none; cursor: pointer;
+  transition: opacity .3s, transform .3s;
+}
+.hero-dot:hover { opacity: .6; }
+.hero-dot.is-active { opacity: 1; transform: scale(1.25); }
 
 /* ---------- Cards de produto ---------- */
 .product-media { position: relative; overflow: hidden; background: rgba(242, 233, 212, .35); }
@@ -228,9 +239,10 @@ body { overflow-x: clip; }
   /* Hero: título menor, botões empilhados */
   #inicio h1 { font-size: 2rem; line-height: 1.15; }
 
-  /* Hero card destaque: compacto */
-  #hero-feature { padding: .75rem 1rem; gap: .5rem; flex-direction: column; align-items: flex-start; }
-  #hero-feature button { width: 100%; text-align: center; }
+  /* Hero carrossel: card compacto */
+  .hero-slide .backdrop-blur-md { padding: .75rem 1rem; }
+  .hero-slide .font-serif.text-xl { font-size: 1rem; }
+  .hero-slide button[onclick^="openProduct"] { padding-top: .5rem; padding-bottom: .5rem; }
 
   /* Catálogo: filtros rolam na horizontal */
   #catalog-filters { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
@@ -262,9 +274,6 @@ body { overflow-x: clip; }
   /* Sobre: padding menor */
   #sobre { padding-top: 3rem; padding-bottom: 3rem; }
   #sobre .aspect-\[3\/4\] { aspect-ratio: 16/10; }
-
-  /* Decantes: grid 1 coluna */
-  #decants-grid { grid-template-columns: 1fr; }
 
   /* Modal do produto: imagem menor para caber info */
   #product-modal-content .product-media { aspect-ratio: 1/1 !important; max-height: 55vw; }

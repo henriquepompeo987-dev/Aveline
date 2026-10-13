@@ -34,7 +34,7 @@ async function loadAdminProducts() {
   if (error) {
     console.error(error);
     document.getElementById('product-rows').innerHTML =
-      '<tr><td colspan="7" class="text-center py-10 text-red-700">Erro ao carregar produtos: ' + esc(error.message) + '</td></tr>';
+      '<tr><td colspan="6" class="text-center py-10 text-red-700">Erro ao carregar produtos: ' + esc(error.message) + '</td></tr>';
     return;
   }
   state.products = data || [];
@@ -82,14 +82,14 @@ function renderProductTable() {
 
   if (!state.products.length) {
     tbody.innerHTML =
-      '<tr><td colspan="7" class="text-center py-14">' +
+      '<tr><td colspan="6" class="text-center py-14">' +
         '<p class="font-serif text-xl text-brand-wine">Nenhum produto cadastrado</p>' +
         '<p class="text-xs text-brand-dark/60 mt-1">Clique em "Novo produto" ou rode o supabase/seed.sql.</p>' +
       '</td></tr>';
     return;
   }
   if (!list.length) {
-    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-10 text-brand-dark/50">Nenhum produto com esses filtros.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-10 text-brand-dark/50">Nenhum produto com esses filtros.</td></tr>';
     return;
   }
 
@@ -99,14 +99,11 @@ function renderProductTable() {
       !p.in_stock ? '<span class="status-pill warn">Esgotado</span>' : '',
       !p.image_url ? '<span class="status-pill warn">Sem imagem</span>' : '',
       p.is_featured ? '<span class="status-pill brand">Destaque</span>' : '',
+      p.is_carousel ? '<span class="status-pill brand">Carrossel</span>' : '',
       p.is_niche ? '<span class="status-pill brand">Nicho</span>' : '',
+      p.is_arabic ? '<span class="status-pill brand">Árabe</span>' : '',
       p.is_new ? '<span class="status-pill brand">Lançamento</span>' : '',
     ].join(' ');
-
-    const decants = [
-      p.decant_5ml_price ? '5ml ' + formatBRL(p.decant_5ml_price) : '',
-      p.decant_10ml_price ? '10ml ' + formatBRL(p.decant_10ml_price) : '',
-    ].filter(Boolean).join('<br/>') || '<span class="text-brand-dark/40">—</span>';
 
     const compare = p.compare_at_price && Number(p.compare_at_price) > Number(p.price)
       ? '<div class="text-[11px] text-brand-dark/45 line-through">' + formatBRL(p.compare_at_price) + '</div>'
@@ -124,7 +121,6 @@ function renderProductTable() {
         '</td>' +
         '<td>' + esc(CATEGORY_NAMES[p.category] || p.category) + '</td>' +
         '<td class="text-right whitespace-nowrap">' + compare + '<span class="font-semibold text-brand-wine">' + formatBRL(p.price) + '</span></td>' +
-        '<td class="text-right text-xs whitespace-nowrap">' + decants + '</td>' +
         '<td><div class="flex flex-wrap gap-1 max-w-[220px]">' + pills + '</div></td>' +
         '<td class="text-right whitespace-nowrap">' +
           '<button onclick="toggleActive(\'' + p.id + '\')" class="icon-btn" title="' + (p.active ? 'Ocultar da loja' : 'Mostrar na loja') + '">' +
@@ -193,10 +189,10 @@ function friendlyError(error) {
 const EMPTY_PRODUCT = {
   name: '', house: '', slug: '', badge: '', category: 'unissex',
   concentration: 'Eau de Parfum', volume_ml: 100,
-  price: '', compare_at_price: '', decant_5ml_price: '', decant_10ml_price: '',
+  price: '', compare_at_price: '',
   short_description: '', description: '',
   notes_top: [], notes_heart: [], notes_base: [], families: [],
-  active: true, in_stock: true, is_niche: false, is_new: false, is_featured: false,
+  active: true, in_stock: true, is_niche: false, is_arabic: false, is_new: false, is_featured: false, is_carousel: false,
   sort_order: 0, image_url: null, gallery: [],
 };
 
@@ -222,8 +218,8 @@ function openEditor(id) {
   form.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
 
   ['name', 'house', 'slug', 'badge', 'category', 'concentration', 'volume_ml', 'price', 'compare_at_price',
-   'decant_5ml_price', 'decant_10ml_price', 'short_description', 'description', 'sort_order',
-   'active', 'in_stock', 'is_niche', 'is_new', 'is_featured'].forEach((k) => setField(k, v[k]));
+   'short_description', 'description', 'sort_order',
+   'active', 'in_stock', 'is_niche', 'is_arabic', 'is_new', 'is_featured', 'is_carousel'].forEach((k) => setField(k, v[k]));
   setField('notes_top', (v.notes_top || []).join(', '));
   setField('notes_heart', (v.notes_heart || []).join(', '));
   setField('notes_base', (v.notes_base || []).join(', '));
@@ -423,8 +419,6 @@ async function saveProduct(event) {
     volume_ml: numberOrNull(fd.get('volume_ml')) ? Math.round(numberOrNull(fd.get('volume_ml'))) : null,
     price: numberOrNull(fd.get('price')),
     compare_at_price: numberOrNull(fd.get('compare_at_price')),
-    decant_5ml_price: numberOrNull(fd.get('decant_5ml_price')),
-    decant_10ml_price: numberOrNull(fd.get('decant_10ml_price')),
     short_description: textOrNull(fd.get('short_description')),
     description: textOrNull(fd.get('description')),
     notes_top: parseList(fd.get('notes_top')),
@@ -434,8 +428,10 @@ async function saveProduct(event) {
     active: el.active.checked,
     in_stock: el.in_stock.checked,
     is_niche: el.is_niche.checked,
+    is_arabic: el.is_arabic.checked,
     is_new: el.is_new.checked,
     is_featured: el.is_featured.checked,
+    is_carousel: el.is_carousel.checked,
     sort_order: Math.round(numberOrNull(fd.get('sort_order')) || 0),
     image_url: state.mainImage,
     gallery: state.gallery,

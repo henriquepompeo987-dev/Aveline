@@ -7,7 +7,6 @@ const BANNER_POSITIONS = [
   { value: 'apos-hero', label: 'Depois do destaque principal' },
   { value: 'apos-quiz', label: 'Depois da Bússola Olfativa' },
   { value: 'apos-catalogo', label: 'Depois do catálogo' },
-  { value: 'apos-decantes', label: 'Depois dos decantes' },
   { value: 'apos-sobre', label: 'Depois do "Sobre"' },
   { value: 'apos-depoimentos', label: 'Depois dos depoimentos' },
   { value: 'antes-rodape', label: 'Antes do rodapé' },

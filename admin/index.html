@@ -169,13 +169,12 @@
                 <th>Produto</th>
                 <th>Categoria</th>
                 <th class="text-right">Preço</th>
-                <th class="text-right">Decantes</th>
                 <th>Status</th>
                 <th class="text-right">Ações</th>
               </tr>
             </thead>
             <tbody id="product-rows">
-              <tr><td colspan="7" class="text-center py-10 text-brand-dark/50">Carregando produtos...</td></tr>
+              <tr><td colspan="6" class="text-center py-10 text-brand-dark/50">Carregando produtos...</td></tr>
             </tbody>
           </table>
         </div>
@@ -412,7 +411,7 @@
       <!-- Preços -->
       <fieldset class="space-y-4">
         <legend class="admin-legend">Preços (R$)</legend>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="admin-label" for="f-price">Frasco *</label>
             <input id="f-price" name="price" type="number" min="0" step="0.01" required class="admin-input" placeholder="2450.00"/>
@@ -420,14 +419,6 @@
           <div>
             <label class="admin-label" for="f-compare">Preço "de"</label>
             <input id="f-compare" name="compare_at_price" type="number" min="0" step="0.01" class="admin-input" placeholder="opcional"/>
-          </div>
-          <div>
-            <label class="admin-label" for="f-d5">Decante 5ml</label>
-            <input id="f-d5" name="decant_5ml_price" type="number" min="0" step="0.01" class="admin-input" placeholder="vazio = não vende"/>
-          </div>
-          <div>
-            <label class="admin-label" for="f-d10">Decante 10ml</label>
-            <input id="f-d10" name="decant_10ml_price" type="number" min="0" step="0.01" class="admin-input" placeholder="vazio = não vende"/>
           </div>
         </div>
       </fieldset>
@@ -476,8 +467,10 @@
           <label class="switch-row"><input type="checkbox" name="active" class="switch"/> <span><b>Visível na loja</b><small>Desmarque para ocultar sem excluir</small></span></label>
           <label class="switch-row"><input type="checkbox" name="in_stock" class="switch"/> <span><b>Frasco em estoque</b><small>Sem estoque vira "Encomendar"</small></span></label>
           <label class="switch-row"><input type="checkbox" name="is_niche" class="switch"/> <span><b>Perfumaria de nicho</b><small>Aparece no filtro Nicho</small></span></label>
+          <label class="switch-row"><input type="checkbox" name="is_arabic" class="switch"/> <span><b>Perfumaria árabe</b><small>Aparece no filtro Árabes</small></span></label>
           <label class="switch-row"><input type="checkbox" name="is_new" class="switch"/> <span><b>Lançamento</b><small>Aparece no filtro Lançamentos</small></span></label>
           <label class="switch-row"><input type="checkbox" name="is_featured" class="switch"/> <span><b>Destaque da home</b><small>Card no topo do site</small></span></label>
+          <label class="switch-row"><input type="checkbox" name="is_carousel" class="switch"/> <span><b>Carrossel do hero</b><small>Aparece no carrossel rotativo da home</small></span></label>
           <div>
             <label class="admin-label" for="f-sort">Ordem de exibição</label>
             <input id="f-sort" name="sort_order" type="number" step="1" class="admin-input" placeholder="0 = primeiro"/>
@@ -521,7 +514,7 @@
           <div id="banner-image-preview" class="absolute inset-0"></div>
           <div class="dropzone-hint">
             <span class="material-symbols-outlined text-[32px]">add_photo_alternate</span>
-            <span>Clique ou arraste · JPG, PNG ou WebP<br/>Ideal: imagem larga, ~1600 × 400 px</span>
+            <span>Clique ou arraste · JPG, PNG ou WebP<br/>Ideal: imagem larga, ~1800 × 450 px</span>
           </div>
           <div class="dropzone-loading hidden"><div class="spinner"></div></div>
         </label>

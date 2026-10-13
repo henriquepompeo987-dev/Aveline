@@ -12,7 +12,6 @@ Avile/
 │   ├── hero.html               # Destaque principal
 │   ├── quiz.html               # Bússola olfativa
 │   ├── catalog.html            # Curadoria (grade de produtos)
-│   ├── decants.html            # Decantes
 │   ├── about.html              # Sobre a AVELINE
 │   ├── testimonials.html       # Depoimentos
 │   ├── newsletter.html         # Newsletter
@@ -129,7 +128,7 @@ Depois adicione a URL publicada do `/admin/` em *Redirect URLs* do Supabase (pas
 ## 6. Usando o painel
 
 - **Novo produto / Editar:** nome, casa, categoria, concentração, volume, preços
-  (frasco, preço "de", decante 5ml e 10ml), descrição, pirâmide olfativa,
+  (frasco e preço "de"), descrição, pirâmide olfativa,
   famílias (usadas na Bússola Olfativa), selo e visibilidade.
 - **Imagens:** arraste ou clique para enviar a imagem principal; adicione imagens extras
   na galeria (⭐ define como principal). As imagens são reduzidas para até 1600px em WebP

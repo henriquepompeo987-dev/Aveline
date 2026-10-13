@@ -133,7 +133,7 @@ function watchActiveSection() {
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
 
-  ['inicio', 'catalogo', 'decantes', 'sobre'].forEach((id) => {
+  ['inicio', 'catalogo', 'sobre'].forEach((id) => {
     const section = document.getElementById(id);
     if (section) observer.observe(section);
   });

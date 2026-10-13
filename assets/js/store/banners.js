@@ -18,12 +18,11 @@ function storeBannerHtml(b) {
         (b.description ? '<div class="rich-text text-sm sm:text-base leading-relaxed text-brand-cream/90 mt-3">' + sanitizeHtml(b.description) + '</div>' : '') +
       '</div>'
     : '';
-  const size = hasText ? 'min-h-[220px] sm:min-h-[260px] lg:min-h-0 lg:aspect-[4/1]' : 'aspect-[3/1] sm:aspect-[4/1]';
-  const wrapper = full ? 'w-full' : 'max-w-[1380px] mx-auto px-4 sm:px-8';
+  const size = hasText ? 'h-[420px] sm:h-[480px] lg:h-[520px]' : 'h-[350px] sm:h-[420px] lg:h-[480px]';
 
   return (
-    '<section class="' + wrapper + ' py-6">' +
-      '<div class="relative overflow-hidden flex items-center bg-brand-wine ' + (full ? '' : 'border border-brand-gold/30 ') + size + '">' +
+    '<section class="w-full">' +
+      '<div class="relative overflow-hidden flex items-center bg-brand-wine ' + size + '">' +
         img + shade + copy +
       '</div>' +
     '</section>'

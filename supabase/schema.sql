@@ -65,6 +65,8 @@ create table if not exists public.products (
   category          text not null default 'unissex'
                     check (category in ('feminino', 'masculino', 'unissex')),
   is_niche          boolean not null default false,       -- Perfumaria de nicho
+  is_arabic         boolean not null default false,       -- Perfumaria árabe
+  is_carousel       boolean not null default false,       -- Aparece no carrossel do hero
   is_new            boolean not null default false,       -- Lançamento
   is_featured       boolean not null default false,       -- Destaque (hero / bússola)
   concentration     text default 'Eau de Parfum',
@@ -88,6 +90,13 @@ create table if not exists public.products (
   created_at        timestamptz not null default now(),
   updated_at        timestamptz not null default now()
 );
+
+-- Para bancos criados antes da coluna existir
+alter table public.products
+  add column if not exists is_arabic boolean not null default false;
+
+alter table public.products
+  add column if not exists is_carousel boolean not null default false;
 
 create index if not exists products_active_sort_idx on public.products (active, sort_order);
 create index if not exists products_category_idx    on public.products (category);
