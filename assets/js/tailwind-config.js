@@ -15,7 +15,7 @@ tailwind.config = {
         },
       },
       fontFamily: {
-        serif: ['Segoe UI', 'Playfair Display', 'serif'],
+        serif: ['Segoe UI', '-apple-system', 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         sans: ['Plus Jakarta Sans', 'sans-serif'],
       },
     },
