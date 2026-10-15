@@ -112,7 +112,7 @@ function renderCart() {
         '<span class="material-symbols-outlined text-[48px] text-brand-gold">local_mall</span>' +
         '<p class="font-serif text-xl text-brand-wine">Sua sacola está vazia</p>' +
         '<p class="text-xs text-brand-dark/60 max-w-[240px]">Explore a curadoria e encontre a fragrância que conta a sua história.</p>' +
-        '<a href="#catalogo" onclick="closeAllOverlays()" class="mt-2 px-6 py-3 bg-brand-gold text-brand-linen text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-goldHover">Explorar perfumes</a>' +
+        '<a href="#catalogo" onclick="closeAllOverlays()" class="mt-2 px-6 py-3 bg-brand-wine text-white text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-dark">Explorar perfumes</a>' +
       '</div>';
     if (footer) footer.classList.add('hidden');
     return;

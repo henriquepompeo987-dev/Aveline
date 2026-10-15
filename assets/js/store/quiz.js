@@ -69,7 +69,7 @@ function renderQuiz() {
       '<p class="text-xs text-brand-dark/70">' + esc(p.short_description || '') + '</p>' +
       '<div class="pt-3 flex flex-wrap gap-2 justify-center sm:justify-start">' +
         (p.in_stock
-          ? '<button onclick="addToCart(\'' + p.id + '\')" class="px-4 py-2 bg-brand-gold text-brand-linen text-[10px] font-bold tracking-widest uppercase hover:bg-brand-goldHover transition-colors">Adicionar à sacola • ' + formatBRL(p.price) + '</button>'
+          ? '<button onclick="addToCart(\'' + p.id + '\')" class="px-4 py-2 bg-brand-wine text-white text-[10px] font-bold tracking-widest uppercase hover:bg-brand-dark transition-colors">Adicionar à sacola • ' + formatBRL(p.price) + '</button>'
           : '') +
         '<button onclick="openProduct(\'' + p.id + '\')" class="px-4 py-2 bg-brand-cream text-brand-wine text-[10px] font-bold tracking-widest uppercase hover:bg-brand-gold/30 transition-colors">Ver pirâmide</button>' +
       '</div>' +

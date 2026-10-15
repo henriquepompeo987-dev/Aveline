@@ -70,24 +70,24 @@ function filterCatalog(filter, scroll) {
 function productCardHtml(p) {
   const liked = typeof isWishlisted === 'function' && isWishlisted(p.id);
   const badge = !p.in_stock
-    ? '<span class="absolute top-3 left-3 px-2.5 py-1 bg-brand-linen text-brand-gold text-[9px] font-bold tracking-[0.2em] uppercase">Esgotado</span>'
+    ? '<span class="absolute top-3 left-3 px-2.5 py-1 bg-brand-dark text-brand-cream text-[9px] font-bold tracking-[0.2em] uppercase">Esgotado</span>'
     : p.badge
-      ? '<span class="absolute top-3 left-3 px-2.5 py-1 bg-brand-gold text-brand-linen text-[9px] font-bold tracking-[0.2em] uppercase">' + esc(p.badge) + '</span>'
+      ? '<span class="absolute top-3 left-3 px-2.5 py-1 bg-brand-wine text-brand-cream text-[9px] font-bold tracking-[0.2em] uppercase">' + esc(p.badge) + '</span>'
       : '';
   const compare = p.compare_at_price && Number(p.compare_at_price) > Number(p.price)
     ? '<span class="text-xs text-brand-dark/50 line-through mr-2">' + formatBRL(p.compare_at_price) + '</span>'
     : '';
   const families = (p.families || []).slice(0, 3).map((f) => '<span class="family-chip">' + esc(f) + '</span>').join(' ');
   const buyBtn = p.in_stock
-    ? '<button onclick="addToCart(\'' + p.id + '\')" class="card-action flex-1 py-3 bg-brand-gold text-brand-linen text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-goldHover transition-colors">Adicionar à sacola</button>'
-    : '<a href="' + esc(whatsappLink('Olá! Gostaria de encomendar o ' + p.name + ' (' + p.house + ').')) + '" target="_blank" rel="noopener" class="card-action flex-1 py-3 text-center bg-brand-border text-brand-dark text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-surface transition-colors">Encomendar</a>';
+    ? '<button onclick="addToCart(\'' + p.id + '\')" class="card-action flex-1 py-3 bg-brand-wine text-white text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-colors">Adicionar à sacola</button>'
+    : '<a href="' + esc(whatsappLink('Olá! Gostaria de encomendar o ' + p.name + ' (' + p.house + ').')) + '" target="_blank" rel="noopener" class="card-action flex-1 py-3 text-center bg-brand-dark text-white text-[10px] font-bold tracking-[0.16em] uppercase hover:bg-brand-wine transition-colors">Encomendar</a>';
 
   return (
     '<article class="group bg-brand-surface border border-brand-border flex flex-col hover:shadow-xl hover:border-brand-gold transition-all duration-300' + (!p.in_stock ? ' opacity-75' : '') + '">' +
       '<div class="product-media aspect-[4/5] cursor-pointer" onclick="openProduct(\'' + p.id + '\')">' +
         productImageHtml(p) +
         badge +
-        '<button onclick="event.stopPropagation(); toggleWishlist(\'' + p.id + '\')" data-wish="' + p.id + '" class="card-wish absolute top-3 right-3 w-10 h-10 rounded-full bg-brand-surface/90 border border-brand-border flex items-center justify-center text-brand-wine hover:scale-110 transition-transform" aria-label="Favoritar">' +
+        '<button onclick="event.stopPropagation(); toggleWishlist(\'' + p.id + '\')" data-wish="' + p.id + '" class="card-wish absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 border border-brand-border flex items-center justify-center text-brand-wine hover:scale-110 transition-transform" aria-label="Favoritar">' +
           '<span class="material-symbols-outlined text-[18px] ' + (liked ? 'is-filled' : '') + '">favorite</span>' +
         '</button>' +
       '</div>' +
@@ -141,7 +141,7 @@ function heroSlideHtml(p) {
           '<span class="font-serif text-xl text-brand-wine font-medium block truncate">' + esc(p.name) + ' • ' + esc(p.house) + '</span>' +
           '<span class="text-xs text-brand-dark/70 block mt-0.5">' + esc(productSpec(p)) + '</span>' +
         '</div>' +
-        '<button onclick="openProduct(\'' + p.id + '\')" class="mt-3 w-full py-2.5 bg-brand-gold text-brand-linen text-[10px] tracking-widest uppercase font-bold hover:bg-brand-goldHover transition-colors">Pirâmide</button>' +
+        '<button onclick="openProduct(\'' + p.id + '\')" class="mt-3 w-full py-2.5 bg-brand-wine text-brand-cream text-[10px] tracking-widest uppercase font-bold hover:bg-brand-dark transition-colors">Pirâmide</button>' +
       '</div>' +
     '</div>'
   );
@@ -263,7 +263,7 @@ function renderProductModal() {
   const liked = typeof isWishlisted === 'function' && isWishlisted(p.id);
 
   const thumbs = images.length > 1
-    ? '<div class="flex gap-2 p-3 overflow-x-auto bg-brand-surface border-t border-brand-border">' +
+    ? '<div class="flex gap-2 p-3 overflow-x-auto bg-white border-t border-brand-border">' +
         images.map((url, i) =>
           '<button onclick="selectImage(' + i + ')" class="thumb-btn w-16 h-16 flex-shrink-0 overflow-hidden ' + (url === detailState.image ? 'is-active' : '') + '">' +
             '<img src="' + esc(url) + '" alt="" class="w-full h-full object-cover" loading="lazy"/>' +
@@ -281,8 +281,8 @@ function renderProductModal() {
 
   const canBuy = p.in_stock || selected.key !== 'full';
   const buy = canBuy
-    ? '<button onclick="addToCart(\'' + p.id + '\', \'' + selected.key + '\'); closeAllOverlays();" class="flex-1 py-4 bg-brand-gold text-brand-linen text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-goldHover transition-colors">Adicionar à sacola • ' + formatBRL(selected.price) + '</button>'
-    : '<a href="' + esc(whatsappLink('Olá! Gostaria de encomendar o ' + p.name + ' (' + p.house + ').')) + '" target="_blank" rel="noopener" class="flex-1 py-4 text-center bg-brand-border text-brand-dark text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-surface transition-colors">Frasco esgotado • Encomendar</a>';
+    ? '<button onclick="addToCart(\'' + p.id + '\', \'' + selected.key + '\'); closeAllOverlays();" class="flex-1 py-4 bg-brand-wine text-white text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-dark transition-colors">Adicionar à sacola • ' + formatBRL(selected.price) + '</button>'
+    : '<a href="' + esc(whatsappLink('Olá! Gostaria de encomendar o ' + p.name + ' (' + p.house + ').')) + '" target="_blank" rel="noopener" class="flex-1 py-4 text-center bg-brand-dark text-white text-xs font-bold tracking-[0.16em] uppercase hover:bg-brand-wine transition-colors">Frasco esgotado • Encomendar</a>';
 
   box.innerHTML =
     '<div class="grid grid-cols-1 md:grid-cols-2">' +
@@ -301,7 +301,7 @@ function renderProductModal() {
           : p.short_description
             ? '<p class="text-sm text-brand-dark/80 leading-relaxed">' + esc(p.short_description) + '</p>'
             : '') +
-        '<div class="bg-brand-surface border border-brand-border px-5 py-2">' +
+        '<div class="bg-white border border-brand-border px-5 py-2">' +
           '<span class="block pt-2 text-[10px] font-bold tracking-[0.25em] uppercase text-brand-gold">Pirâmide Olfativa</span>' +
           pyramidRow('air', 'Notas de Saída', p.notes_top) +
           pyramidRow('favorite', 'Notas de Coração', p.notes_heart) +
